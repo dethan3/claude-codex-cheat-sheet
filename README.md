@@ -1,4 +1,4 @@
-# Claude Claude / CodeX 速查表
+# Claude / Codex 速查表
 
 这个仓库现在包含两张可直接打开的单页速查表：
 
@@ -49,8 +49,7 @@ python3 -m http.server 4173
 
 然后访问：
 
-- `http://localhost:4173/index.html`
-- `http://localhost:4173/codex.html`
+- `http://localhost:4173`
 
 如果你修改了以下文件，需要重新生成页面：
 
