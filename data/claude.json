@@ -1,0 +1,1013 @@
+{
+  "id": "claude",
+  "pageClass": "page-claude",
+  "title": "Claude Code 中文速查表",
+  "description": "Claude Code 中文速查表，面向中文开发者整理的快捷键、斜杠命令、CLI 参数、MCP、Memory、Skills、Agents 与环境变量参考。",
+  "versionInfo": "Claude Code v2.1.84",
+  "lastUpdated": "最近更新：2026 年 3 月 26 日",
+  "changelog": {
+    "href": "https://code.claude.com/docs/en/changelog",
+    "label": "📋 最近变更",
+    "items": [
+      "PowerShell 工具（Windows 预览版，<code>v2.1.84</code>）",
+      "新增 <code>TaskCreated</code> hook 与 HTTP <code>WorktreeCreate</code>",
+      "<code>paths:</code> frontmatter 现在支持 YAML glob 列表",
+      "MCP 工具描述上限调整为 2 KB",
+      "离开 75 分钟以上后，返回时会出现提示",
+      "<code>/effort</code> 现已支持 <code>max</code>（Opus 4.6）"
+    ]
+  },
+  "columns": [
+    {
+      "className": "section-keyboard-mcp",
+      "sections": [
+        {
+          "className": "section-keyboard",
+          "header": "⌨️ 键盘快捷键",
+          "groups": [
+            {
+              "title": "通用控制",
+              "rows": [
+                {
+                  "keyHtml": "<span class=\"keycap\">Ctrl</span><span class=\"keycap\">C</span>",
+                  "descHtml": "取消当前输入/生成"
+                },
+                {
+                  "keyHtml": "<span class=\"keycap\">Ctrl</span><span class=\"keycap\">D</span>",
+                  "descHtml": "退出会话"
+                },
+                {
+                  "keyHtml": "<span class=\"keycap\">Ctrl</span><span class=\"keycap\">L</span>",
+                  "descHtml": "清屏"
+                },
+                {
+                  "keyHtml": "<span class=\"keycap\">Ctrl</span><span class=\"keycap\">O</span>",
+                  "descHtml": "切换详细输出"
+                },
+                {
+                  "keyHtml": "<span class=\"keycap\">Ctrl</span><span class=\"keycap\">R</span>",
+                  "descHtml": "反向搜索历史"
+                },
+                {
+                  "keyHtml": "<span class=\"keycap\">Ctrl</span><span class=\"keycap\">G</span>",
+                  "descHtml": "在编辑器中打开输入内容"
+                },
+                {
+                  "keyHtml": "<span class=\"keycap\">Ctrl</span><span class=\"keycap\">X</span> <span class=\"keycap\">Ctrl</span><span class=\"keycap\">E</span>",
+                  "descHtml": "在编辑器中打开（别名）<span class=\"badge-new\" data-added=\"2026-03-25\">NEW</span>"
+                },
+                {
+                  "keyHtml": "<span class=\"keycap\">Ctrl</span><span class=\"keycap\">B</span>",
+                  "descHtml": "将运行中的任务转到后台"
+                },
+                {
+                  "keyHtml": "<span class=\"keycap\">Ctrl</span><span class=\"keycap\">T</span>",
+                  "descHtml": "显示/隐藏任务列表"
+                },
+                {
+                  "keyHtml": "<span class=\"keycap\">Ctrl</span><span class=\"keycap\">V</span>",
+                  "descHtml": "粘贴图片"
+                },
+                {
+                  "keyHtml": "<span class=\"keycap\">Ctrl</span><span class=\"keycap\">X</span> <span class=\"keycap\">Ctrl</span><span class=\"keycap\">K</span>",
+                  "descHtml": "终止后台 agents<span class=\"badge-new\" data-added=\"2026-03-25\">NEW</span>"
+                },
+                {
+                  "keyHtml": "<span class=\"keycap\">Esc</span><span class=\"keycap\">Esc</span>",
+                  "descHtml": "回退 / 撤销"
+                }
+              ]
+            },
+            {
+              "title": "模式切换",
+              "rows": [
+                {
+                  "keyHtml": "<span class=\"keycap\">Shift</span><span class=\"keycap\">Tab</span>",
+                  "descHtml": "轮换权限模式"
+                },
+                {
+                  "keyHtml": "<span class=\"keycap\">Alt</span><span class=\"keycap\">P</span>",
+                  "descHtml": "切换模型"
+                },
+                {
+                  "keyHtml": "<span class=\"keycap\">Alt</span><span class=\"keycap\">T</span>",
+                  "descHtml": "开/关思考过程"
+                },
+                {
+                  "keyHtml": "<span class=\"keycap\">Alt</span><span class=\"keycap\">O</span>",
+                  "descHtml": "切换快速模式<span class=\"badge-new\" data-added=\"2026-03-26\">NEW</span>"
+                }
+              ]
+            },
+            {
+              "title": "输入",
+              "rows": [
+                {
+                  "keyHtml": "<span class=\"keycap\">\\</span><span class=\"keycap\">Enter</span>",
+                  "descHtml": "换行（快速）"
+                },
+                {
+                  "keyHtml": "<span class=\"keycap\">Ctrl</span><span class=\"keycap\">J</span>",
+                  "descHtml": "换行（控制序列）"
+                }
+              ]
+            },
+            {
+              "title": "前缀",
+              "rows": [
+                {
+                  "keyHtml": "/",
+                  "descHtml": "斜杠命令"
+                },
+                {
+                  "keyHtml": "!",
+                  "descHtml": "直接执行 bash"
+                },
+                {
+                  "keyHtml": "@",
+                  "descHtml": "文件引用 + 自动补全"
+                }
+              ]
+            },
+            {
+              "title": "会话选择器",
+              "rows": [
+                {
+                  "keyHtml": "<span class=\"keycap\">↑↓</span>",
+                  "descHtml": "导航"
+                },
+                {
+                  "keyHtml": "<span class=\"keycap\">←→</span>",
+                  "descHtml": "展开/折叠"
+                },
+                {
+                  "keyHtml": "<span class=\"keycap\">P</span>",
+                  "descHtml": "预览"
+                },
+                {
+                  "keyHtml": "<span class=\"keycap\">R</span>",
+                  "descHtml": "重命名"
+                },
+                {
+                  "keyHtml": "<span class=\"keycap\">/</span>",
+                  "descHtml": "搜索"
+                },
+                {
+                  "keyHtml": "<span class=\"keycap\">A</span>",
+                  "descHtml": "所有项目"
+                },
+                {
+                  "keyHtml": "<span class=\"keycap\">B</span>",
+                  "descHtml": "当前分支"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "className": "section-mcp",
+          "header": "🔌 MCP 服务器",
+          "groups": [
+            {
+              "title": "添加服务器",
+              "rows": [
+                {
+                  "keyHtml": "--transport http",
+                  "descHtml": "远程 HTTP（推荐）"
+                },
+                {
+                  "keyHtml": "--transport stdio",
+                  "descHtml": "本地进程"
+                },
+                {
+                  "keyHtml": "--transport sse",
+                  "descHtml": "远程 SSE"
+                }
+              ]
+            },
+            {
+              "title": "生效范围",
+              "rows": [
+                {
+                  "keyHtml": "Local",
+                  "descHtml": "settings.local.json（仅自己）"
+                },
+                {
+                  "keyHtml": "Project",
+                  "descHtml": ".mcp.json（共享/版本控制）"
+                },
+                {
+                  "keyHtml": "User",
+                  "descHtml": "~/.claude.json（全局）"
+                }
+              ]
+            },
+            {
+              "title": "管理",
+              "rows": [
+                {
+                  "keyHtml": "/mcp",
+                  "descHtml": "交互式界面"
+                },
+                {
+                  "keyHtml": "claude mcp list",
+                  "descHtml": "列出全部服务器"
+                },
+                {
+                  "keyHtml": "claude mcp serve",
+                  "descHtml": "将 CC 作为 MCP 服务器"
+                },
+                {
+                  "keyHtml": "Elicitation",
+                  "descHtml": "服务器可在任务中途请求输入<span class=\"badge-new\" data-added=\"2026-03-23\">NEW</span>"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "className": "section-slash-memory",
+      "sections": [
+        {
+          "className": "section-slash",
+          "header": "⚡ 斜杠命令",
+          "groups": [
+            {
+              "title": "会话",
+              "rows": [
+                {
+                  "keyHtml": "/clear",
+                  "descHtml": "清空对话"
+                },
+                {
+                  "keyHtml": "/compact [focus]",
+                  "descHtml": "压缩上下文"
+                },
+                {
+                  "keyHtml": "/resume",
+                  "descHtml": "恢复/切换会话"
+                },
+                {
+                  "keyHtml": "/rename [name]",
+                  "descHtml": "命名当前会话"
+                },
+                {
+                  "keyHtml": "/branch [name]",
+                  "descHtml": "为对话创建分支（/fork 别名保留）"
+                },
+                {
+                  "keyHtml": "/cost",
+                  "descHtml": "Token 使用统计"
+                },
+                {
+                  "keyHtml": "/context",
+                  "descHtml": "可视化上下文（网格）"
+                },
+                {
+                  "keyHtml": "/diff",
+                  "descHtml": "交互式 Diff 查看器"
+                },
+                {
+                  "keyHtml": "/copy [N]",
+                  "descHtml": "复制上一条（或第 N 条）回复"
+                },
+                {
+                  "keyHtml": "/rewind",
+                  "descHtml": "回退对话 / 代码检查点"
+                },
+                {
+                  "keyHtml": "/export",
+                  "descHtml": "导出对话"
+                }
+              ]
+            },
+            {
+              "title": "配置",
+              "rows": [
+                {
+                  "keyHtml": "/config",
+                  "descHtml": "打开设置"
+                },
+                {
+                  "keyHtml": "/model [model]",
+                  "descHtml": "切换模型（←→ 切 effort）"
+                },
+                {
+                  "keyHtml": "/fast [on|off]",
+                  "descHtml": "切换快速模式"
+                },
+                {
+                  "keyHtml": "/vim",
+                  "descHtml": "切换 Vim 模式"
+                },
+                {
+                  "keyHtml": "/theme",
+                  "descHtml": "切换配色主题"
+                },
+                {
+                  "keyHtml": "/permissions",
+                  "descHtml": "查看/更新权限"
+                },
+                {
+                  "keyHtml": "/effort [level]",
+                  "descHtml": "设置 effort（low/med/high/max/auto）<span class=\"badge-new\" data-added=\"2026-03-23\">NEW</span>"
+                },
+                {
+                  "keyHtml": "/color [color]",
+                  "descHtml": "设置提示栏颜色"
+                },
+                {
+                  "keyHtml": "/keybindings",
+                  "descHtml": "自定义快捷键"
+                },
+                {
+                  "keyHtml": "/terminal-setup",
+                  "descHtml": "配置终端快捷键"
+                }
+              ]
+            },
+            {
+              "title": "工具",
+              "rows": [
+                {
+                  "keyHtml": "/init",
+                  "descHtml": "创建 CLAUDE.md"
+                },
+                {
+                  "keyHtml": "/memory",
+                  "descHtml": "编辑 CLAUDE.md 文件"
+                },
+                {
+                  "keyHtml": "/mcp",
+                  "descHtml": "管理 MCP 服务器"
+                },
+                {
+                  "keyHtml": "/hooks",
+                  "descHtml": "管理 hooks"
+                },
+                {
+                  "keyHtml": "/skills",
+                  "descHtml": "列出可用技能"
+                },
+                {
+                  "keyHtml": "/agents",
+                  "descHtml": "管理 agents"
+                },
+                {
+                  "keyHtml": "/chrome",
+                  "descHtml": "Chrome 集成"
+                },
+                {
+                  "keyHtml": "/reload-plugins",
+                  "descHtml": "热重载插件"
+                },
+                {
+                  "keyHtml": "/add-dir &lt;path&gt;",
+                  "descHtml": "添加工作目录"
+                }
+              ]
+            },
+            {
+              "title": "特殊功能",
+              "rows": [
+                {
+                  "keyHtml": "/btw &lt;question&gt;",
+                  "descHtml": "旁支问题（不带上下文）"
+                },
+                {
+                  "keyHtml": "/plan [desc]",
+                  "descHtml": "Plan 模式（支持自动开始）"
+                },
+                {
+                  "keyHtml": "/loop [interval]",
+                  "descHtml": "安排周期任务"
+                },
+                {
+                  "keyHtml": "/voice",
+                  "descHtml": "按住说话语音模式（20 种语言）"
+                },
+                {
+                  "keyHtml": "/doctor",
+                  "descHtml": "诊断安装"
+                },
+                {
+                  "keyHtml": "/pr-comments [PR]",
+                  "descHtml": "获取 GitHub PR 评论"
+                },
+                {
+                  "keyHtml": "/stats",
+                  "descHtml": "使用连续天数与偏好"
+                },
+                {
+                  "keyHtml": "/insights",
+                  "descHtml": "分析会话报告"
+                },
+                {
+                  "keyHtml": "/desktop",
+                  "descHtml": "在桌面端继续"
+                },
+                {
+                  "keyHtml": "/remote-control",
+                  "descHtml": "连接到 claude.ai/code（/rc）<span class=\"badge-new\" data-added=\"2026-03-23\">NEW</span>"
+                },
+                {
+                  "keyHtml": "/usage",
+                  "descHtml": "套餐额度与速率状态"
+                },
+                {
+                  "keyHtml": "/schedule",
+                  "descHtml": "云端定时任务"
+                },
+                {
+                  "keyHtml": "/security-review",
+                  "descHtml": "对变更做安全分析"
+                },
+                {
+                  "keyHtml": "/help",
+                  "descHtml": "显示帮助和命令"
+                },
+                {
+                  "keyHtml": "/feedback",
+                  "descHtml": "提交反馈（别名：/bug）"
+                },
+                {
+                  "keyHtml": "/release-notes",
+                  "descHtml": "查看完整更新日志"
+                },
+                {
+                  "keyHtml": "/stickers",
+                  "descHtml": "订购贴纸！"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "className": "section-memory",
+          "header": "📁 Memory 与文件",
+          "groups": [
+            {
+              "title": "CLAUDE.md 位置",
+              "rows": [
+                {
+                  "keyHtml": "./CLAUDE.md",
+                  "descHtml": "项目级（团队共享）"
+                },
+                {
+                  "keyHtml": "~/.claude/CLAUDE.md",
+                  "descHtml": "个人级（所有项目）"
+                },
+                {
+                  "keyHtml": "/etc/claude-code/",
+                  "descHtml": "托管级（组织范围）"
+                }
+              ]
+            },
+            {
+              "title": "规则与导入",
+              "rows": [
+                {
+                  "keyHtml": ".claude/rules/*.md",
+                  "descHtml": "项目规则"
+                },
+                {
+                  "keyHtml": "~/.claude/rules/*.md",
+                  "descHtml": "用户规则"
+                },
+                {
+                  "keyHtml": "paths: frontmatter",
+                  "descHtml": "路径级规则"
+                },
+                {
+                  "keyHtml": "@path/to/file",
+                  "descHtml": "在 CLAUDE.md 中导入"
+                }
+              ]
+            },
+            {
+              "title": "自动记忆",
+              "rows": [
+                {
+                  "keyHtml": "~/.claude/projects/&lt;proj&gt;/memory/"
+                },
+                {
+                  "descHtml": "自动加载 <code>MEMORY.md</code> 和主题文件"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "className": "section-workflows-config",
+      "sections": [
+        {
+          "className": "section-workflows",
+          "header": "🧠 工作流与技巧",
+          "groups": [
+            {
+              "title": "Plan 模式",
+              "rows": [
+                {
+                  "keyHtml": "<span class=\"keycap\">Shift</span><span class=\"keycap\">Tab</span>",
+                  "descHtml": "普通 → 自动接受 → Plan"
+                },
+                {
+                  "keyHtml": "--permission-mode plan",
+                  "descHtml": "以 plan 模式启动"
+                }
+              ]
+            },
+            {
+              "title": "思考与 effort",
+              "rows": [
+                {
+                  "keyHtml": "<span class=\"keycap\">Alt</span><span class=\"keycap\">T</span>",
+                  "descHtml": "开/关思考过程"
+                },
+                {
+                  "keyHtml": "\"ultrathink\"",
+                  "descHtml": "本轮最高 effort"
+                },
+                {
+                  "keyHtml": "<span class=\"keycap\">Ctrl</span><span class=\"keycap\">O</span>",
+                  "descHtml": "查看思考过程（verbose）"
+                },
+                {
+                  "keyHtml": "/effort",
+                  "descHtml": "○ low · ◐ med · ● high · ★ max"
+                }
+              ]
+            },
+            {
+              "title": "Git Worktree",
+              "rows": [
+                {
+                  "keyHtml": "--worktree name",
+                  "descHtml": "每个功能独立分支"
+                },
+                {
+                  "keyHtml": "isolation: worktree",
+                  "descHtml": "agent 在独立 worktree 中运行"
+                },
+                {
+                  "keyHtml": "sparsePaths",
+                  "descHtml": "只检出所需目录<span class=\"badge-new\" data-added=\"2026-03-23\">NEW</span>"
+                },
+                {
+                  "keyHtml": "/batch",
+                  "descHtml": "自动创建 worktree"
+                }
+              ]
+            },
+            {
+              "title": "语音模式",
+              "rows": [
+                {
+                  "keyHtml": "/voice",
+                  "descHtml": "开启按住说话"
+                },
+                {
+                  "keyHtml": "<span class=\"keycap\">Space</span>（按住）",
+                  "descHtml": "按住录音，松开发送"
+                },
+                {
+                  "keyHtml": "20 languages",
+                  "descHtml": "支持 20 种语言：EN、ES、FR、DE、CZ、PL…"
+                }
+              ]
+            },
+            {
+              "title": "上下文管理",
+              "rows": [
+                {
+                  "keyHtml": "/context",
+                  "descHtml": "用量和优化建议"
+                },
+                {
+                  "keyHtml": "/compact [focus]",
+                  "descHtml": "按焦点压缩上下文"
+                },
+                {
+                  "keyHtml": "Auto-compact",
+                  "descHtml": "约 95% 容量时自动压缩"
+                },
+                {
+                  "keyHtml": "1M context",
+                  "descHtml": "Opus 4.6（Max/Team/Ent）"
+                },
+                {
+                  "keyHtml": "CLAUDE.md",
+                  "descHtml": "压缩后依然保留"
+                }
+              ]
+            },
+            {
+              "title": "会话高阶技巧",
+              "rows": [
+                {
+                  "keyHtml": "claude -c",
+                  "descHtml": "继续上次对话"
+                },
+                {
+                  "keyHtml": "claude -r \"name\"",
+                  "descHtml": "按名称恢复"
+                },
+                {
+                  "keyHtml": "/btw question",
+                  "descHtml": "旁支提问，不消耗上下文"
+                }
+              ]
+            },
+            {
+              "title": "SDK / 无头模式",
+              "rows": [
+                {
+                  "keyHtml": "claude -p \"query\"",
+                  "descHtml": "非交互模式"
+                },
+                {
+                  "keyHtml": "--output-format json",
+                  "descHtml": "结构化输出"
+                },
+                {
+                  "keyHtml": "--max-budget-usd 5",
+                  "descHtml": "成本上限"
+                },
+                {
+                  "keyHtml": "cat file | claude -p",
+                  "descHtml": "管道输入"
+                }
+              ]
+            },
+            {
+              "title": "定时与远程",
+              "rows": [
+                {
+                  "keyHtml": "/loop 5m msg",
+                  "descHtml": "周期任务"
+                },
+                {
+                  "keyHtml": "/rc",
+                  "descHtml": "远程控制"
+                },
+                {
+                  "keyHtml": "--remote",
+                  "descHtml": "在 claude.ai 上打开 Web 会话"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "className": "section-config",
+          "header": "⚙️ 配置与环境变量",
+          "groups": [
+            {
+              "title": "配置文件",
+              "rows": [
+                {
+                  "keyHtml": "~/.claude/settings.json",
+                  "descHtml": "用户设置"
+                },
+                {
+                  "keyHtml": ".claude/settings.json",
+                  "descHtml": "项目级（共享）"
+                },
+                {
+                  "keyHtml": ".claude/settings.local.json",
+                  "descHtml": "仅本地"
+                },
+                {
+                  "keyHtml": "~/.claude.json",
+                  "descHtml": "OAuth、MCP、状态"
+                },
+                {
+                  "keyHtml": ".mcp.json",
+                  "descHtml": "项目 MCP 服务器"
+                }
+              ]
+            },
+            {
+              "title": "关键配置",
+              "rows": [
+                {
+                  "keyHtml": "modelOverrides",
+                  "descHtml": "将模型选择器映射到自定义 ID"
+                },
+                {
+                  "keyHtml": "autoMemoryDirectory",
+                  "descHtml": "自定义记忆目录"
+                },
+                {
+                  "keyHtml": "worktree.sparsePaths",
+                  "descHtml": "稀疏检出目录<span class=\"badge-new\" data-added=\"2026-03-23\">NEW</span>"
+                }
+              ]
+            },
+            {
+              "title": "关键环境变量",
+              "rows": [
+                {
+                  "keyHtml": "ANTHROPIC_API_KEY"
+                },
+                {
+                  "keyHtml": "ANTHROPIC_MODEL"
+                },
+                {
+                  "keyHtml": "CLAUDE_CODE_EFFORT_LEVEL",
+                  "descHtml": "low/med/high"
+                },
+                {
+                  "keyHtml": "MAX_THINKING_TOKENS",
+                  "descHtml": "0=off"
+                },
+                {
+                  "keyHtml": "ANTHROPIC_CUSTOM_MODEL_OPTION",
+                  "descHtml": "自定义 /model 条目"
+                },
+                {
+                  "keyHtml": "CLAUDE_CODE_PLUGIN_SEED_DIR",
+                  "descHtml": "多个插件种子目录"
+                },
+                {
+                  "keyHtml": "CLAUDECODE",
+                  "descHtml": "检测 CC shell（=1）"
+                },
+                {
+                  "keyHtml": "IS_DEMO",
+                  "descHtml": "演示模式（隐藏邮箱/组织）"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "className": "section-skills-cli",
+      "sections": [
+        {
+          "className": "section-skills",
+          "header": "🔧 Skills 与 Agents",
+          "groups": [
+            {
+              "title": "内置技能",
+              "rows": [
+                {
+                  "keyHtml": "/simplify",
+                  "descHtml": "代码评审（3 个并行 agent）"
+                },
+                {
+                  "keyHtml": "/batch",
+                  "descHtml": "大规模并行修改（5-30 个 worktree）"
+                },
+                {
+                  "keyHtml": "/debug [desc]",
+                  "descHtml": "基于调试日志排障"
+                },
+                {
+                  "keyHtml": "/loop [interval]",
+                  "descHtml": "周期性定时任务"
+                },
+                {
+                  "keyHtml": "/claude-api",
+                  "descHtml": "加载 API + SDK 参考"
+                }
+              ]
+            },
+            {
+              "title": "自定义技能位置",
+              "rows": [
+                {
+                  "keyHtml": ".claude/skills/&lt;name&gt;/",
+                  "descHtml": "项目技能"
+                },
+                {
+                  "keyHtml": "~/.claude/skills/&lt;name&gt;/",
+                  "descHtml": "个人技能"
+                }
+              ]
+            },
+            {
+              "title": "技能 Frontmatter",
+              "rows": [
+                {
+                  "keyHtml": "description",
+                  "descHtml": "自动触发条件"
+                },
+                {
+                  "keyHtml": "allowed-tools",
+                  "descHtml": "跳过权限提示"
+                },
+                {
+                  "keyHtml": "model",
+                  "descHtml": "为技能覆写模型"
+                },
+                {
+                  "keyHtml": "effort",
+                  "descHtml": "覆写 effort 等级<span class=\"badge-new\" data-added=\"2026-03-23\">NEW</span>"
+                },
+                {
+                  "keyHtml": "context: fork",
+                  "descHtml": "在子 agent 中运行"
+                },
+                {
+                  "keyHtml": "$ARGUMENTS",
+                  "descHtml": "用户输入占位符"
+                },
+                {
+                  "keyHtml": "${CLAUDE_SKILL_DIR}",
+                  "descHtml": "技能自身目录"
+                },
+                {
+                  "keyHtml": "!`cmd`",
+                  "descHtml": "动态注入上下文"
+                }
+              ]
+            },
+            {
+              "title": "内置 agents",
+              "rows": [
+                {
+                  "keyHtml": "Explore",
+                  "descHtml": "快速只读（Haiku）"
+                },
+                {
+                  "keyHtml": "Plan",
+                  "descHtml": "为 plan 模式做调研"
+                },
+                {
+                  "keyHtml": "General",
+                  "descHtml": "全工具，处理复杂任务"
+                },
+                {
+                  "keyHtml": "Bash",
+                  "descHtml": "终端独立上下文"
+                }
+              ]
+            },
+            {
+              "title": "Agent Frontmatter",
+              "rows": [
+                {
+                  "keyHtml": "permissionMode",
+                  "descHtml": "default/acceptEdits/plan/dontAsk/bypass"
+                },
+                {
+                  "keyHtml": "isolation: worktree",
+                  "descHtml": "在 Git worktree 中运行"
+                },
+                {
+                  "keyHtml": "memory: user|project",
+                  "descHtml": "持久记忆"
+                },
+                {
+                  "keyHtml": "background: true",
+                  "descHtml": "后台任务"
+                },
+                {
+                  "keyHtml": "maxTurns",
+                  "descHtml": "限制 agentic 回合数"
+                },
+                {
+                  "keyHtml": "SendMessage",
+                  "descHtml": "恢复 agents（替代 resume）<span class=\"badge-new\" data-added=\"2026-03-23\">NEW</span>"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "className": "section-cli",
+          "header": "🖥️ CLI 与参数",
+          "groups": [
+            {
+              "title": "核心命令",
+              "rows": [
+                {
+                  "keyHtml": "claude",
+                  "descHtml": "交互式"
+                },
+                {
+                  "keyHtml": "claude \"q\"",
+                  "descHtml": "直接带 prompt"
+                },
+                {
+                  "keyHtml": "claude -p \"q\"",
+                  "descHtml": "无头模式"
+                },
+                {
+                  "keyHtml": "claude -c",
+                  "descHtml": "继续上次会话"
+                },
+                {
+                  "keyHtml": "claude -r \"n\"",
+                  "descHtml": "恢复"
+                },
+                {
+                  "keyHtml": "claude update",
+                  "descHtml": "更新"
+                }
+              ]
+            },
+            {
+              "title": "关键参数",
+              "rows": [
+                {
+                  "keyHtml": "--model",
+                  "descHtml": "设置模型"
+                },
+                {
+                  "keyHtml": "-w",
+                  "descHtml": "Git worktree"
+                },
+                {
+                  "keyHtml": "-n / --name",
+                  "descHtml": "会话名"
+                },
+                {
+                  "keyHtml": "--add-dir",
+                  "descHtml": "添加目录"
+                },
+                {
+                  "keyHtml": "--agent",
+                  "descHtml": "使用 agent"
+                },
+                {
+                  "keyHtml": "--allowedTools",
+                  "descHtml": "预授权"
+                },
+                {
+                  "keyHtml": "--output-format",
+                  "descHtml": "json/stream"
+                },
+                {
+                  "keyHtml": "--json-schema",
+                  "descHtml": "结构化"
+                },
+                {
+                  "keyHtml": "--max-turns",
+                  "descHtml": "限制回合数"
+                },
+                {
+                  "keyHtml": "--max-budget-usd",
+                  "descHtml": "成本上限"
+                },
+                {
+                  "keyHtml": "--console",
+                  "descHtml": "通过 Anthropic Console 认证"
+                },
+                {
+                  "keyHtml": "--verbose",
+                  "descHtml": "详细输出"
+                },
+                {
+                  "keyHtml": "--bare",
+                  "descHtml": "极简无头模式（无 hooks/LSP）<span class=\"badge-new\" data-added=\"2026-03-23\">NEW</span>"
+                },
+                {
+                  "keyHtml": "--channels",
+                  "descHtml": "权限中继 / MCP 推送<span class=\"badge-new\" data-added=\"2026-03-23\">NEW</span>"
+                },
+                {
+                  "keyHtml": "--remote",
+                  "descHtml": "Web 会话"
+                },
+                {
+                  "keyHtml": "--effort",
+                  "descHtml": "low/med/high/max"
+                },
+                {
+                  "keyHtml": "--permission-mode",
+                  "descHtml": "plan/default/…"
+                },
+                {
+                  "keyHtml": "--dangerously-skip-permissions",
+                  "descHtml": "跳过所有提示 ⚠️"
+                },
+                {
+                  "keyHtml": "--chrome",
+                  "descHtml": "Chrome"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "footer": {
+    "rows": [
+      {
+        "html": "<span class=\"footer-label\">权限模式：</span>\n        <span class=\"footer-item\"><code>default</code> 会提示</span>\n        <span class=\"footer-sep\">·</span>\n        <span class=\"footer-item\"><code>acceptEdits</code> 自动接受编辑</span>\n        <span class=\"footer-sep\">·</span>\n        <span class=\"footer-item\"><code>plan</code> 只读</span>\n        <span class=\"footer-sep\">·</span>\n        <span class=\"footer-item\"><code>dontAsk</code> 除非允许，否则拒绝</span>\n        <span class=\"footer-sep\">·</span>\n        <span class=\"footer-item\"><code>bypassPermissions</code> 跳过全部</span>\n        <span class=\"footer-sep\">·</span>\n        <span class=\"footer-item\"><code>--dangerously-skip-permissions</code> CLI 参数</span>"
+      },
+      {
+        "html": "<span class=\"footer-label\">关键环境变量：</span>\n        <span class=\"footer-item\"><code>ANTHROPIC_API_KEY</code></span>\n        <span class=\"footer-sep\">·</span>\n        <span class=\"footer-item\"><code>ANTHROPIC_MODEL</code></span>\n        <span class=\"footer-sep\">·</span>\n        <span class=\"footer-item\"><code>CLAUDE_CODE_EFFORT_LEVEL</code>（low/med/high）</span>\n        <span class=\"footer-sep\">·</span>\n        <span class=\"footer-item\"><code>MAX_THINKING_TOKENS</code>（0=off）</span>\n        <span class=\"footer-sep\">·</span>\n        <span class=\"footer-item\"><code>CLAUDE_CODE_MAX_OUTPUT_TOKENS</code>（默认 32K）</span>\n        <span class=\"footer-sep\">·</span>\n        <span class=\"footer-item\"><code>CLAUDE_CODE_DISABLE_CRON</code></span>"
+      }
+    ]
+  }
+}

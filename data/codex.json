@@ -1,0 +1,846 @@
+{
+  "id": "codex",
+  "pageClass": "page-codex",
+  "title": "OpenAI Codex 中文速查表",
+  "description": "OpenAI Codex 中文速查表，汇总 Codex CLI/TUI 的快捷键、Slash Commands、CLI 参数、沙箱审批、配置文件与 MCP 参考。",
+  "versionInfo": "OpenAI Codex CLI / TUI",
+  "lastUpdated": "资料核对：2026 年 3 月 27 日",
+  "changelog": {
+    "href": "https://developers.openai.com/codex/cli",
+    "label": "📋 资料来源",
+    "items": [
+      "基于 OpenAI Codex 官方文档与本机 <code>codex --help</code> 整理",
+      "覆盖 CLI / TUI、Slash Commands、审批与沙箱、MCP、配置文件",
+      "保留命令与参数原文，功能说明做中文本地化改写",
+      "适合快速扫读、项目内贴墙、A4 横向打印"
+    ]
+  },
+  "columns": [
+    {
+      "className": "section-keyboard-mcp",
+      "sections": [
+        {
+          "className": "section-keyboard",
+          "header": "⌨️ 交互与快捷键",
+          "groups": [
+            {
+              "title": "Terminal UI",
+              "rows": [
+                {
+                  "keyHtml": "<span class=\"keycap\">Ctrl</span><span class=\"keycap\">C</span>",
+                  "descHtml": "结束交互式会话（文档等价于 <code>/exit</code>）"
+                },
+                {
+                  "keyHtml": "<span class=\"keycap\">Ctrl</span><span class=\"keycap\">L</span>",
+                  "descHtml": "清空终端视图，不新建会话"
+                },
+                {
+                  "keyHtml": "<span class=\"keycap\">Ctrl</span><span class=\"keycap\">G</span>",
+                  "descHtml": "用 <code>VISUAL</code>/<code>EDITOR</code> 打开提示编辑器"
+                },
+                {
+                  "keyHtml": "<span class=\"keycap\">↑↓</span>",
+                  "descHtml": "浏览草稿历史"
+                },
+                {
+                  "keyHtml": "<span class=\"keycap\">Enter</span>",
+                  "descHtml": "发送；任务运行中可插入补充指令"
+                },
+                {
+                  "keyHtml": "<span class=\"keycap\">Tab</span>",
+                  "descHtml": "把下一条跟进提示排队到本轮之后"
+                },
+                {
+                  "keyHtml": "<span class=\"keycap\">Esc</span><span class=\"keycap\">Esc</span>",
+                  "descHtml": "输入框为空时编辑上一条消息；继续 <code>Esc</code> 向前回溯"
+                }
+              ]
+            },
+            {
+              "title": "输入前缀",
+              "rows": [
+                {
+                  "keyHtml": "/",
+                  "descHtml": "打开 slash popup / 运行 slash command"
+                },
+                {
+                  "keyHtml": "@",
+                  "descHtml": "模糊搜索工作区文件并插入路径"
+                },
+                {
+                  "keyHtml": "!",
+                  "descHtml": "直接执行本地 shell 命令"
+                }
+              ]
+            },
+            {
+              "title": "会话恢复",
+              "rows": [
+                {
+                  "keyHtml": "codex resume",
+                  "descHtml": "打开最近交互会话选择器"
+                },
+                {
+                  "keyHtml": "<span class=\"keycap\">Enter</span>",
+                  "descHtml": "在恢复选择器中重开高亮会话"
+                },
+                {
+                  "keyHtml": "--last",
+                  "descHtml": "跳过 picker，直接继续最近一次"
+                },
+                {
+                  "keyHtml": "--all",
+                  "descHtml": "跨工作目录显示全部历史会话"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "className": "section-mcp",
+          "header": "🔌 MCP 与外部工具",
+          "groups": [
+            {
+              "title": "支持类型",
+              "rows": [
+                {
+                  "keyHtml": "STDIO",
+                  "descHtml": "本地进程型 MCP 服务器"
+                },
+                {
+                  "keyHtml": "HTTP",
+                  "descHtml": "Streamable HTTP 服务器"
+                },
+                {
+                  "keyHtml": "Bearer",
+                  "descHtml": "Bearer Token 鉴权"
+                },
+                {
+                  "keyHtml": "OAuth",
+                  "descHtml": "支持 <code>codex mcp login</code> 的服务器可直接登录"
+                }
+              ]
+            },
+            {
+              "title": "CLI 管理",
+              "rows": [
+                {
+                  "keyHtml": "codex mcp list",
+                  "descHtml": "列出已配置服务器"
+                },
+                {
+                  "keyHtml": "codex mcp get",
+                  "descHtml": "查看单个服务器详情"
+                },
+                {
+                  "keyHtml": "codex mcp add",
+                  "descHtml": "添加 MCP 服务器"
+                },
+                {
+                  "keyHtml": "codex mcp remove",
+                  "descHtml": "删除服务器"
+                },
+                {
+                  "keyHtml": "codex mcp login/logout",
+                  "descHtml": "处理 OAuth 登录状态"
+                },
+                {
+                  "keyHtml": "/mcp",
+                  "descHtml": "在 TUI 中查看当前激活的 MCP"
+                }
+              ]
+            },
+            {
+              "title": "关键配置",
+              "rows": [
+                {
+                  "keyHtml": "[mcp_servers.&lt;name&gt;]",
+                  "descHtml": "每个服务器一个 table"
+                },
+                {
+                  "keyHtml": "command / args / env",
+                  "descHtml": "STDIO 服务器常用字段"
+                },
+                {
+                  "keyHtml": "url / bearer_token_env_var",
+                  "descHtml": "HTTP 服务器常用字段"
+                },
+                {
+                  "keyHtml": "enabled_tools",
+                  "descHtml": "工具白名单"
+                },
+                {
+                  "keyHtml": "disabled_tools",
+                  "descHtml": "工具黑名单（后应用）"
+                },
+                {
+                  "keyHtml": "startup_timeout_sec",
+                  "descHtml": "启动超时，默认 10 秒"
+                },
+                {
+                  "keyHtml": "tool_timeout_sec",
+                  "descHtml": "工具执行超时，默认 60 秒"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "className": "section-slash-memory",
+      "sections": [
+        {
+          "className": "section-slash",
+          "header": "⚡ Slash Commands",
+          "groups": [
+            {
+              "title": "会话控制",
+              "rows": [
+                {
+                  "keyHtml": "/clear",
+                  "descHtml": "清屏并开始新对话"
+                },
+                {
+                  "keyHtml": "/new",
+                  "descHtml": "同一 CLI 内开启全新会话"
+                },
+                {
+                  "keyHtml": "/compact",
+                  "descHtml": "压缩当前可见会话，回收上下文"
+                },
+                {
+                  "keyHtml": "/copy",
+                  "descHtml": "复制最近一次已完成输出"
+                },
+                {
+                  "keyHtml": "/status",
+                  "descHtml": "查看模型、审批、可写目录、上下文"
+                },
+                {
+                  "keyHtml": "/statusline",
+                  "descHtml": "配置底部状态栏字段"
+                },
+                {
+                  "keyHtml": "/theme",
+                  "descHtml": "预览并保存 TUI 主题"
+                },
+                {
+                  "keyHtml": "/exit",
+                  "descHtml": "退出 CLI（同 <code>/quit</code>）"
+                }
+              ]
+            },
+            {
+              "title": "模型与风格",
+              "rows": [
+                {
+                  "keyHtml": "/model",
+                  "descHtml": "切换模型与可用 reasoning effort"
+                },
+                {
+                  "keyHtml": "/fast",
+                  "descHtml": "切换 Fast mode / 查询状态"
+                },
+                {
+                  "keyHtml": "/personality",
+                  "descHtml": "切换回复风格：friendly / pragmatic / none"
+                },
+                {
+                  "keyHtml": "/plan",
+                  "descHtml": "切入 plan mode，可直接带提示词"
+                },
+                {
+                  "keyHtml": "/permissions",
+                  "descHtml": "更新审批预设与权限策略"
+                }
+              ]
+            },
+            {
+              "title": "工作区与工具",
+              "rows": [
+                {
+                  "keyHtml": "/diff",
+                  "descHtml": "查看 Git diff，包括未跟踪文件"
+                },
+                {
+                  "keyHtml": "/review",
+                  "descHtml": "让 Codex 审查当前 working tree"
+                },
+                {
+                  "keyHtml": "/mention",
+                  "descHtml": "把文件或目录附到当前对话"
+                },
+                {
+                  "keyHtml": "/mcp",
+                  "descHtml": "查看可用 MCP 工具"
+                },
+                {
+                  "keyHtml": "/apps",
+                  "descHtml": "浏览 connectors / apps 并插入到提示中"
+                },
+                {
+                  "keyHtml": "/init",
+                  "descHtml": "生成当前目录的 <code>AGENTS.md</code>"
+                },
+                {
+                  "keyHtml": "/logout",
+                  "descHtml": "退出当前登录状态"
+                }
+              ]
+            },
+            {
+              "title": "线程与实验特性",
+              "rows": [
+                {
+                  "keyHtml": "/agent",
+                  "descHtml": "切换活动 agent 线程"
+                },
+                {
+                  "keyHtml": "/fork",
+                  "descHtml": "从当前会话分叉出新线程"
+                },
+                {
+                  "keyHtml": "/resume",
+                  "descHtml": "从历史会话列表中恢复线程"
+                },
+                {
+                  "keyHtml": "/ps",
+                  "descHtml": "查看实验性后台终端及输出"
+                },
+                {
+                  "keyHtml": "/experimental",
+                  "descHtml": "开关实验特性"
+                },
+                {
+                  "keyHtml": "/debug-config",
+                  "descHtml": "打印配置层与约束诊断"
+                },
+                {
+                  "keyHtml": "/sandbox-add-read-dir",
+                  "descHtml": "仅 Windows：给额外目录补只读权限"
+                },
+                {
+                  "keyHtml": "/feedback",
+                  "descHtml": "把日志发给 Codex 维护者"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "className": "section-memory",
+          "header": "📁 配置与规则",
+          "groups": [
+            {
+              "title": "配置文件位置",
+              "rows": [
+                {
+                  "keyHtml": "~/.codex/config.toml",
+                  "descHtml": "用户级默认配置"
+                },
+                {
+                  "keyHtml": ".codex/config.toml",
+                  "descHtml": "项目级覆盖（仅受信项目）"
+                },
+                {
+                  "keyHtml": "/etc/codex/config.toml",
+                  "descHtml": "系统级配置"
+                },
+                {
+                  "keyHtml": "AGENTS.md",
+                  "descHtml": "项目持久指令文件"
+                },
+                {
+                  "keyHtml": "requirements.toml",
+                  "descHtml": "管理员强制约束安全敏感设置"
+                }
+              ]
+            },
+            {
+              "title": "优先级",
+              "rows": [
+                {
+                  "keyHtml": "CLI flags / --config",
+                  "descHtml": "最高优先级"
+                },
+                {
+                  "keyHtml": "--profile &lt;name&gt;",
+                  "descHtml": "按 profile 覆盖默认值"
+                },
+                {
+                  "keyHtml": "project config",
+                  "descHtml": "从项目根到当前目录逐层覆盖"
+                },
+                {
+                  "keyHtml": "user / system / built-in",
+                  "descHtml": "用户、系统、内置默认"
+                }
+              ]
+            },
+            {
+              "title": "常用键",
+              "rows": [
+                {
+                  "keyHtml": "model",
+                  "descHtml": "默认模型，例如 <code>gpt-5-codex</code>"
+                },
+                {
+                  "keyHtml": "model_reasoning_effort",
+                  "descHtml": "minimal / low / medium / high / xhigh"
+                },
+                {
+                  "keyHtml": "model_reasoning_summary",
+                  "descHtml": "auto / concise / detailed / none"
+                },
+                {
+                  "keyHtml": "service_tier",
+                  "descHtml": "新回合偏好：<code>fast</code> / <code>flex</code>"
+                },
+                {
+                  "keyHtml": "approval_policy",
+                  "descHtml": "审批策略"
+                },
+                {
+                  "keyHtml": "approval_policy.granular.*",
+                  "descHtml": "按类别细化审批，属于配置层能力"
+                },
+                {
+                  "keyHtml": "sandbox_mode",
+                  "descHtml": "沙箱级别"
+                },
+                {
+                  "keyHtml": "web_search",
+                  "descHtml": "cached / live / disabled"
+                },
+                {
+                  "keyHtml": "[features]",
+                  "descHtml": "可选与实验功能开关"
+                },
+                {
+                  "keyHtml": "projects.&lt;path&gt;.trust_level",
+                  "descHtml": "标记 trusted / untrusted 项目"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "className": "section-workflows-config",
+      "sections": [
+        {
+          "className": "section-workflows",
+          "header": "🧠 工作流与自动化",
+          "groups": [
+            {
+              "title": "交互式工作流",
+              "rows": [
+                {
+                  "keyHtml": "codex",
+                  "descHtml": "启动交互式 TUI"
+                },
+                {
+                  "keyHtml": "codex \"prompt\"",
+                  "descHtml": "带首条提示直接进入会话"
+                },
+                {
+                  "keyHtml": "-i / --image &lt;file&gt;",
+                  "descHtml": "附加截图、设计稿或图像"
+                },
+                {
+                  "keyHtml": "--no-alt-screen",
+                  "descHtml": "内联模式运行，保留滚动历史"
+                }
+              ]
+            },
+            {
+              "title": "恢复与分叉",
+              "rows": [
+                {
+                  "keyHtml": "codex resume",
+                  "descHtml": "恢复之前的交互会话"
+                },
+                {
+                  "keyHtml": "codex resume --last",
+                  "descHtml": "直接继续最近一次"
+                },
+                {
+                  "keyHtml": "codex fork",
+                  "descHtml": "从历史会话分叉新线程"
+                },
+                {
+                  "keyHtml": "~/.codex/sessions/",
+                  "descHtml": "本地会话存档目录"
+                }
+              ]
+            },
+            {
+              "title": "自动化",
+              "rows": [
+                {
+                  "keyHtml": "codex exec \"prompt\"",
+                  "descHtml": "非交互模式运行"
+                },
+                {
+                  "keyHtml": "codex exec resume --last",
+                  "descHtml": "续跑最近一次自动化任务"
+                },
+                {
+                  "keyHtml": "--json",
+                  "descHtml": "把事件流输出为 JSONL"
+                },
+                {
+                  "keyHtml": "-o reply.txt",
+                  "descHtml": "写出最后一条消息"
+                },
+                {
+                  "keyHtml": "--output-schema schema.json",
+                  "descHtml": "约束最终响应形状"
+                },
+                {
+                  "keyHtml": "--ephemeral",
+                  "descHtml": "不把 session 文件落盘"
+                }
+              ]
+            },
+            {
+              "title": "评审与云端任务",
+              "rows": [
+                {
+                  "keyHtml": "codex review",
+                  "descHtml": "用独立 Codex agent 做代码评审"
+                },
+                {
+                  "keyHtml": "codex cloud",
+                  "descHtml": "浏览 Codex Cloud 任务"
+                },
+                {
+                  "keyHtml": "codex cloud exec --env ENV_ID",
+                  "descHtml": "直接提交云端任务",
+                  "compact": true
+                },
+                {
+                  "keyHtml": "--attempts 3",
+                  "descHtml": "向云端请求 best-of-N 尝试"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "className": "section-config",
+          "header": "⚙️ 沙箱与审批",
+          "groups": [
+            {
+              "title": "审批策略",
+              "rows": [
+                {
+                  "keyHtml": "on-request",
+                  "descHtml": "由 Codex 判断何时向你申请"
+                },
+                {
+                  "keyHtml": "untrusted",
+                  "descHtml": "仅可信读操作自动放行"
+                },
+                {
+                  "keyHtml": "never",
+                  "descHtml": "从不弹审批，失败直接返回"
+                },
+                {
+                  "keyHtml": "on-failure",
+                  "descHtml": "旧值，已废弃；文档建议改用上面两类"
+                }
+              ]
+            },
+            {
+              "title": "沙箱模式",
+              "rows": [
+                {
+                  "keyHtml": "read-only",
+                  "descHtml": "只读问答 / 浏览代码"
+                },
+                {
+                  "keyHtml": "workspace-write",
+                  "descHtml": "可读写工作区，可按需放网络"
+                },
+                {
+                  "keyHtml": "danger-full-access",
+                  "descHtml": "不受沙箱限制，高风险"
+                },
+                {
+                  "keyHtml": "sandbox_workspace_write.network_access",
+                  "descHtml": "为 workspace-write 单独开外网"
+                },
+                {
+                  "keyHtml": "sandbox_workspace_write.writable_roots",
+                  "descHtml": "补充额外可写目录"
+                }
+              ]
+            },
+            {
+              "title": "常见组合",
+              "rows": [
+                {
+                  "keyHtml": "--full-auto",
+                  "descHtml": "<code>workspace-write</code> + <code>on-request</code>"
+                },
+                {
+                  "keyHtml": "--sandbox read-only --ask-for-approval on-request",
+                  "descHtml": "安全只读浏览",
+                  "compact": true
+                },
+                {
+                  "keyHtml": "--sandbox read-only -a never",
+                  "descHtml": "CI / 静默只读"
+                },
+                {
+                  "keyHtml": "--sandbox workspace-write -a untrusted",
+                  "descHtml": "自动改文件，但命令更谨慎",
+                  "compact": true
+                },
+                {
+                  "keyHtml": "--dangerously-bypass-approvals-and-sandbox / --yolo",
+                  "descHtml": "仅限外部已隔离环境",
+                  "compact": true
+                },
+                {
+                  "keyHtml": "codex sandbox linux|macos|windows",
+                  "descHtml": "按平台手动验证 Codex 沙箱",
+                  "compact": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "className": "section-skills-cli",
+      "sections": [
+        {
+          "className": "section-skills",
+          "header": "🧩 客户端与模型",
+          "groups": [
+            {
+              "title": "客户端",
+              "rows": [
+                {
+                  "keyHtml": "CLI",
+                  "descHtml": "本地终端里的 Codex 代理"
+                },
+                {
+                  "keyHtml": "IDE extension",
+                  "descHtml": "VS Code / Cursor / Windsurf"
+                },
+                {
+                  "keyHtml": "JetBrains",
+                  "descHtml": "Rider / IntelliJ / PyCharm / WebStorm"
+                },
+                {
+                  "keyHtml": "Web / App",
+                  "descHtml": "云端任务、环境与并行 agent"
+                },
+                {
+                  "keyHtml": "GitHub",
+                  "descHtml": "PR 评审与远程工作流"
+                },
+                {
+                  "keyHtml": "Slack / Linear",
+                  "descHtml": "聊天与工单集成"
+                }
+              ]
+            },
+            {
+              "title": "模型控制",
+              "rows": [
+                {
+                  "keyHtml": "gpt-5.4",
+                  "descHtml": "官方文档当前推荐的 Codex 默认首选"
+                },
+                {
+                  "keyHtml": "gpt-5.3-codex",
+                  "descHtml": "Codex 家族编码模型，可在支持账号中切换"
+                },
+                {
+                  "keyHtml": "gpt-5-codex",
+                  "descHtml": "命令行文档中的模型示例值"
+                },
+                {
+                  "keyHtml": "gpt-4.1-mini",
+                  "descHtml": "slash command 文档示例中的轻量模型"
+                },
+                {
+                  "keyHtml": "/model",
+                  "descHtml": "在会话内切换模型和 reasoning effort"
+                },
+                {
+                  "keyHtml": "service_tier",
+                  "descHtml": "<code>fast</code> / <code>flex</code> 服务层偏好"
+                }
+              ]
+            },
+            {
+              "title": "功能开关",
+              "rows": [
+                {
+                  "keyHtml": "codex features list",
+                  "descHtml": "查看已知 feature flag 与状态"
+                },
+                {
+                  "keyHtml": "codex features enable &lt;name&gt;",
+                  "descHtml": "在配置中开启 feature"
+                },
+                {
+                  "keyHtml": "codex features disable &lt;name&gt;",
+                  "descHtml": "关闭 feature"
+                },
+                {
+                  "keyHtml": "/experimental",
+                  "descHtml": "在 TUI 内切换实验特性"
+                },
+                {
+                  "keyHtml": "web_search",
+                  "descHtml": "cached / live / disabled"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "className": "section-cli",
+          "header": "🖥️ CLI 与参数",
+          "groups": [
+            {
+              "title": "核心命令",
+              "rows": [
+                {
+                  "keyHtml": "codex",
+                  "descHtml": "交互式 TUI"
+                },
+                {
+                  "keyHtml": "codex exec",
+                  "descHtml": "非交互模式执行"
+                },
+                {
+                  "keyHtml": "codex review",
+                  "descHtml": "代码评审"
+                },
+                {
+                  "keyHtml": "codex login / logout",
+                  "descHtml": "管理登录状态"
+                },
+                {
+                  "keyHtml": "codex resume / fork",
+                  "descHtml": "恢复或分叉会话"
+                },
+                {
+                  "keyHtml": "codex cloud",
+                  "descHtml": "浏览与提交云端任务"
+                },
+                {
+                  "keyHtml": "codex mcp",
+                  "descHtml": "管理 MCP 服务器"
+                },
+                {
+                  "keyHtml": "codex sandbox",
+                  "descHtml": "测试平台沙箱"
+                },
+                {
+                  "keyHtml": "codex features",
+                  "descHtml": "查看和切换 feature flags"
+                }
+              ]
+            },
+            {
+              "title": "常用参数",
+              "rows": [
+                {
+                  "keyHtml": "-m / --model",
+                  "descHtml": "选择模型"
+                },
+                {
+                  "keyHtml": "-p / --profile",
+                  "descHtml": "使用配置 profile"
+                },
+                {
+                  "keyHtml": "-C / --cd",
+                  "descHtml": "指定工作根目录"
+                },
+                {
+                  "keyHtml": "--add-dir",
+                  "descHtml": "附加可写目录"
+                },
+                {
+                  "keyHtml": "--search",
+                  "descHtml": "开启 live web search"
+                },
+                {
+                  "keyHtml": "-s / --sandbox",
+                  "descHtml": "read-only / workspace-write / danger-full-access"
+                },
+                {
+                  "keyHtml": "-a / --ask-for-approval",
+                  "descHtml": "untrusted / on-request / never"
+                },
+                {
+                  "keyHtml": "--full-auto",
+                  "descHtml": "低摩擦自动执行预设"
+                },
+                {
+                  "keyHtml": "--dangerously-bypass-approvals-and-sandbox",
+                  "descHtml": "关闭审批与沙箱（高风险）",
+                  "compact": true
+                },
+                {
+                  "keyHtml": "--oss / --local-provider",
+                  "descHtml": "切到本地 OSS provider"
+                }
+              ]
+            },
+            {
+              "title": "exec 专用",
+              "rows": [
+                {
+                  "keyHtml": "--json",
+                  "descHtml": "输出 JSONL 事件"
+                },
+                {
+                  "keyHtml": "-o / --output-last-message",
+                  "descHtml": "写出最后一条回复"
+                },
+                {
+                  "keyHtml": "--output-schema",
+                  "descHtml": "限制最终输出结构"
+                },
+                {
+                  "keyHtml": "--skip-git-repo-check",
+                  "descHtml": "允许仓库外运行"
+                },
+                {
+                  "keyHtml": "--ephemeral",
+                  "descHtml": "不持久化 session"
+                },
+                {
+                  "keyHtml": "--color always|never|auto",
+                  "descHtml": "控制颜色输出"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "footer": {
+    "rows": [
+      {
+        "html": "<span class=\"footer-label\">审批与沙箱：</span>\n        <span class=\"footer-item\"><code>on-request</code> 智能申请</span>\n        <span class=\"footer-sep\">·</span>\n        <span class=\"footer-item\"><code>untrusted</code> 仅可信读操作自动放行</span>\n        <span class=\"footer-sep\">·</span>\n        <span class=\"footer-item\"><code>never</code> 从不弹审批</span>\n        <span class=\"footer-sep\">·</span>\n        <span class=\"footer-item\"><code>--full-auto</code> workspace-write + on-request</span>\n        <span class=\"footer-sep\">·</span>\n        <span class=\"footer-item\"><code>--yolo</code> 全放开，高风险</span>"
+      },
+      {
+        "html": "<span class=\"footer-label\">关键文件 / 环境：</span>\n        <span class=\"footer-item\"><code>~/.codex/config.toml</code></span>\n        <span class=\"footer-sep\">·</span>\n        <span class=\"footer-item\"><code>.codex/config.toml</code></span>\n        <span class=\"footer-sep\">·</span>\n        <span class=\"footer-item\"><code>AGENTS.md</code></span>\n        <span class=\"footer-sep\">·</span>\n        <span class=\"footer-item\"><code>VISUAL</code></span>\n        <span class=\"footer-sep\">·</span>\n        <span class=\"footer-item\"><code>EDITOR</code></span>\n        <span class=\"footer-sep\">·</span>\n        <span class=\"footer-item\"><code>OPENAI_API_KEY</code>（可选 API key 登录）</span>"
+      }
+    ]
+  }
+}

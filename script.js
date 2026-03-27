@@ -1,10 +1,64 @@
 (function () {
-  var toggle = document.getElementById("osToggle");
-  if (!toggle) {
+  var dataEl = document.getElementById("appData");
+
+  if (!dataEl) {
     return;
   }
 
-  var buttons = toggle.querySelectorAll(".os-btn");
+  var appData = JSON.parse(dataEl.textContent);
+  var products = appData.products || {};
+  var translations = appData.translations || { exact: {}, replace: {} };
+  var replaceEntries = Object.entries(translations.replace || {}).sort(function (a, b) {
+    return b[0].length - a[0].length;
+  });
+  var keyAliases = {
+    Alt: "Alt",
+    "⌥": "Alt",
+    Option: "Alt",
+    Shift: "Shift",
+    "⇧": "Shift",
+    Ctrl: "Ctrl",
+    "⌃": "Ctrl",
+    Control: "Ctrl",
+    Enter: "Enter",
+    Return: "Enter",
+    "↩": "Enter",
+    Esc: "Esc",
+    Escape: "Esc",
+    "⎋": "Esc"
+  };
+  var keyLabels = {
+    mac: {
+      Alt: "⌥",
+      Shift: "⇧",
+      Ctrl: "⌃",
+      Enter: "↩",
+      Esc: "⎋"
+    },
+    win: {
+      Alt: "Alt",
+      Shift: "Shift",
+      Ctrl: "Ctrl",
+      Enter: "Enter",
+      Esc: "Esc"
+    }
+  };
+
+  var productSwitch = document.getElementById("productSwitch");
+  var langSwitch = document.getElementById("langSwitch");
+  var osToggle = document.getElementById("osToggle");
+  var titleEl = document.getElementById("pageTitle");
+  var versionInfoEl = document.getElementById("versionInfo");
+  var lastUpdatedEl = document.getElementById("lastUpdated");
+  var changelogRoot = document.getElementById("changelogRoot");
+  var mainGrid = document.getElementById("mainGrid");
+  var footerRoot = document.getElementById("footerRoot");
+  var descriptionMeta = document.querySelector('meta[name="description"]');
+
+  var PRODUCT_KEY = "cheatsheet-product";
+  var LANG_KEY = "cheatsheet-lang";
+  var OS_KEY = "cc-os";
+  var OS_MANUAL_KEY = "cc-os-manual";
 
   function detectOS() {
     var platform = navigator.platform || "";
@@ -17,48 +71,283 @@
     return "win";
   }
 
-  if (localStorage.getItem("cc-os") && !localStorage.getItem("cc-os-manual")) {
-    localStorage.removeItem("cc-os");
+  function getInitialProduct() {
+    var params = new URLSearchParams(window.location.search);
+    var fromQuery = params.get("product");
+
+    if (fromQuery && products[fromQuery]) {
+      return fromQuery;
+    }
+
+    var saved = localStorage.getItem(PRODUCT_KEY);
+    if (saved && products[saved]) {
+      return saved;
+    }
+
+    var fallback = document.body.dataset.defaultProduct || "claude";
+    return products[fallback] ? fallback : "claude";
   }
 
-  var saved = localStorage.getItem("cc-os") || detectOS();
+  function getInitialLang() {
+    var params = new URLSearchParams(window.location.search);
+    var fromQuery = params.get("lang");
+
+    if (fromQuery === "en" || fromQuery === "zh") {
+      return fromQuery;
+    }
+
+    var saved = localStorage.getItem(LANG_KEY);
+    return saved === "en" ? "en" : "zh";
+  }
+
+  function getInitialOS() {
+    if (localStorage.getItem(OS_KEY) && !localStorage.getItem(OS_MANUAL_KEY)) {
+      localStorage.removeItem(OS_KEY);
+    }
+
+    return localStorage.getItem(OS_KEY) || detectOS();
+  }
+
+  var state = {
+    product: getInitialProduct(),
+    lang: getInitialLang(),
+    os: getInitialOS(),
+  };
+
+  function translate(value) {
+    if (state.lang !== "en" || typeof value !== "string") {
+      return value;
+    }
+
+    var exact = translations.exact && translations.exact[value];
+    if (exact) {
+      return exact;
+    }
+
+    var output = value;
+    replaceEntries.forEach(function (entry) {
+      var source = entry[0];
+      var target = entry[1];
+
+      if (output.indexOf(source) !== -1) {
+        output = output.split(source).join(target);
+      }
+    });
+
+    return output;
+  }
+
+  function renderRow(row) {
+    var classes = ["row"];
+
+    if (!row.keyHtml) {
+      classes.push("row--desc-only");
+    }
+
+    if (!row.descHtml) {
+      classes.push("row--key-only");
+    }
+
+    if (row.compact) {
+      classes.push("row--compact");
+    }
+
+    return '<div class="' + classes.join(" ") + '">' +
+      (row.keyHtml ? '<span class="key">' + translate(row.keyHtml) + "</span>" : "") +
+      (row.descHtml ? '<span class="desc">' + translate(row.descHtml) + "</span>" : "") +
+      "</div>";
+  }
+
+  function renderGroup(group) {
+    return '<div class="sub-header">' + translate(group.title) + "</div>" +
+      group.rows.map(renderRow).join("");
+  }
+
+  function renderSection(section) {
+    return '<section class="section ' + section.className + '">' +
+      '<div class="section-header">' + translate(section.header) + "</div>" +
+      '<div class="section-content">' + section.groups.map(renderGroup).join("") + "</div>" +
+      "</section>";
+  }
+
+  function renderColumn(column) {
+    return '<div class="' + column.className + '">' +
+      column.sections.map(renderSection).join("") +
+      "</div>";
+  }
+
+  function renderChangelog(page) {
+    if (!page.changelog) {
+      changelogRoot.innerHTML = "";
+      return;
+    }
+
+    var items = page.changelog.items.map(function (item) {
+      return "<li>" + translate(item) + "</li>";
+    }).join("");
+
+    changelogRoot.innerHTML =
+      '<div class="changelog">' +
+        '<div class="changelog-header">' +
+          '<a href="' + page.changelog.href + '" target="_blank" rel="noreferrer">' + translate(page.changelog.label) + "</a>" +
+          '<span class="changelog-dismiss" data-action="dismiss-changelog">✕</span>' +
+        "</div>" +
+        '<ul class="changelog-list">' + items + "</ul>" +
+      "</div>";
+  }
+
+  function renderFooter(page) {
+    var footer = page.footer || { rows: [] };
+
+    footerRoot.innerHTML = footer.rows.map(function (row) {
+      return '<div class="footer-row">' + translate(row.html) + "</div>";
+    }).join("");
+  }
+
+  function updateMeta(page) {
+    var title = translate(page.title);
+    var description = translate(page.description);
+
+    document.title = title;
+    document.documentElement.lang = state.lang === "en" ? "en" : "zh-CN";
+    titleEl.textContent = title;
+    versionInfoEl.textContent = translate(page.versionInfo);
+    lastUpdatedEl.textContent = translate(page.lastUpdated);
+
+    if (descriptionMeta) {
+      descriptionMeta.setAttribute("content", description);
+    }
+  }
+
+  function updateModeButtons() {
+    productSwitch.querySelectorAll(".mode-btn").forEach(function (button) {
+      var active = button.dataset.product === state.product;
+      button.classList.toggle("active", active);
+      button.setAttribute("aria-pressed", active ? "true" : "false");
+    });
+
+    langSwitch.querySelectorAll(".mode-btn").forEach(function (button) {
+      var active = button.dataset.lang === state.lang;
+      button.classList.toggle("active", active);
+      button.setAttribute("aria-pressed", active ? "true" : "false");
+    });
+  }
 
   function applyOS(os) {
-    buttons.forEach(function (button) {
+    osToggle.querySelectorAll(".os-btn").forEach(function (button) {
       button.classList.toggle("active", button.dataset.os === os);
     });
 
     document.querySelectorAll(".keycap").forEach(function (keycap) {
-      var text = keycap.textContent.trim();
+      var current = keycap.textContent.trim();
 
-      if (text === "Alt" || text === "⌥") {
-        keycap.textContent = os === "mac" ? "⌥" : "Alt";
-      } else if (text === "Shift" || text === "⇧") {
-        keycap.textContent = os === "mac" ? "⇧" : "Shift";
+      if (!keycap.dataset.baseKey) {
+        keycap.dataset.baseKey = keyAliases[current] || current;
       }
+
+      var baseKey = keycap.dataset.baseKey;
+      var label = keyLabels[os] && keyLabels[os][baseKey];
+      keycap.textContent = label || baseKey;
     });
 
-    localStorage.setItem("cc-os", os);
+    localStorage.setItem(OS_KEY, os);
   }
 
-  buttons.forEach(function (button) {
-    button.addEventListener("click", function () {
-      localStorage.setItem("cc-os-manual", "1");
-      applyOS(button.dataset.os);
+  function updateNewBadges() {
+    var now = new Date();
+
+    document.querySelectorAll(".badge-new[data-added]").forEach(function (badge) {
+      var added = new Date(badge.getAttribute("data-added"));
+      badge.style.display = (now - added) / 86400000 > 14 ? "none" : "";
     });
+  }
+
+  function syncUrl() {
+    try {
+      var params = new URLSearchParams(window.location.search);
+      params.set("product", state.product);
+
+      if (state.lang === "en") {
+        params.set("lang", "en");
+      } else {
+        params.delete("lang");
+      }
+
+      var query = params.toString();
+      var nextUrl = window.location.pathname + (query ? "?" + query : "") + window.location.hash;
+      history.replaceState(null, "", nextUrl);
+    } catch (error) {
+      // Ignore URL sync failures in stricter file:// environments.
+    }
+  }
+
+  function persistState() {
+    localStorage.setItem(PRODUCT_KEY, state.product);
+    localStorage.setItem(LANG_KEY, state.lang);
+  }
+
+  function render() {
+    var page = products[state.product];
+
+    if (!page) {
+      return;
+    }
+
+    updateMeta(page);
+    renderChangelog(page);
+    mainGrid.innerHTML = page.columns.map(renderColumn).join("");
+    renderFooter(page);
+    updateModeButtons();
+    applyOS(state.os);
+    updateNewBadges();
+    persistState();
+    syncUrl();
+  }
+
+  productSwitch.addEventListener("click", function (event) {
+    var button = event.target.closest("[data-product]");
+
+    if (!button || !products[button.dataset.product] || button.dataset.product === state.product) {
+      return;
+    }
+
+    state.product = button.dataset.product;
+    render();
   });
 
-  applyOS(saved);
-})();
+  langSwitch.addEventListener("click", function (event) {
+    var button = event.target.closest("[data-lang]");
 
-(function () {
-  var now = new Date();
+    if (!button || button.dataset.lang === state.lang) {
+      return;
+    }
 
-  document.querySelectorAll(".badge-new[data-added]").forEach(function (badge) {
-    var added = new Date(badge.getAttribute("data-added"));
+    state.lang = button.dataset.lang === "en" ? "en" : "zh";
+    render();
+  });
 
-    if ((now - added) / 86400000 > 14) {
-      badge.style.display = "none";
+  osToggle.addEventListener("click", function (event) {
+    var button = event.target.closest("[data-os]");
+
+    if (!button) {
+      return;
+    }
+
+    localStorage.setItem(OS_MANUAL_KEY, "1");
+    state.os = button.dataset.os;
+    applyOS(state.os);
+  });
+
+  document.addEventListener("click", function (event) {
+    if (!event.target.matches("[data-action='dismiss-changelog']")) {
+      return;
+    }
+
+    var changelog = event.target.closest(".changelog");
+    if (changelog) {
+      changelog.remove();
     }
   });
+
+  render();
 })();
