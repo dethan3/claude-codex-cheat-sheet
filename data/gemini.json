@@ -1,0 +1,466 @@
+{
+  "id": "gemini",
+  "navLabel": "Gemini CLI",
+  "pageClass": "page-gemini",
+  "title": {
+    "zh": "Gemini CLI 中文速查表",
+    "en": "Gemini CLI Cheat Sheet"
+  },
+  "description": {
+    "zh": "Gemini CLI 中文速查表，整理交互模式、REPL 命令、MCP、扩展、配置文件与常用环境变量。",
+    "en": "Gemini CLI cheat sheet covering interactive flows, REPL commands, MCP, extensions, configuration files, and common environment variables."
+  },
+  "versionInfo": {
+    "zh": "Google Gemini CLI",
+    "en": "Google Gemini CLI"
+  },
+  "lastUpdated": {
+    "zh": "资料核对：2026 年 3 月 30 日",
+    "en": "Verified: March 30, 2026"
+  },
+  "changelog": {
+    "href": "https://geminicli.com/docs/",
+    "label": {
+      "zh": "📋 资料来源",
+      "en": "📋 Sources"
+    },
+    "items": [
+      {
+        "zh": "基于 Gemini CLI 官方文档、CLI cheatsheet、settings 与 configuration 页面整理",
+        "en": "Compiled from the official Gemini CLI docs, CLI cheatsheet, settings, and configuration pages"
+      },
+      {
+        "zh": "覆盖交互启动、REPL 命令、MCP、扩展、认证与项目级配置",
+        "en": "Covers interactive startup, REPL commands, MCP, extensions, authentication, and project-level configuration"
+      },
+      {
+        "zh": "重点保留终端里最常查的命令、路径和配置项",
+        "en": "Focuses on the commands, paths, and config knobs you most often need in the terminal"
+      },
+      {
+        "zh": "适合快速扫读、A4 横向打印与团队内贴墙",
+        "en": "Designed for quick scanning, A4 landscape printing, and pinning in a team workspace"
+      }
+    ]
+  },
+  "columns": [
+    {
+      "className": "section-keyboard-mcp",
+      "sections": [
+        {
+          "className": "section-keyboard",
+          "header": "⌨️ 交互与快捷键",
+          "groups": [
+            {
+              "title": "进入方式",
+              "rows": [
+                {
+                  "keyHtml": "gemini",
+                  "descHtml": "启动交互式 REPL"
+                },
+                {
+                  "keyHtml": "gemini \"query\"",
+                  "descHtml": "带初始问题进入交互模式"
+                },
+                {
+                  "keyHtml": "gemini -p \"query\"",
+                  "descHtml": "非交互单次执行"
+                },
+                {
+                  "keyHtml": "gemini -i \"query\"",
+                  "descHtml": "先执行，再继续留在交互界面"
+                },
+                {
+                  "keyHtml": "cat file | gemini",
+                  "descHtml": "把管道输入交给 Gemini 处理"
+                }
+              ]
+            },
+            {
+              "title": "会话恢复",
+              "rows": [
+                {
+                  "keyHtml": "gemini -r \"latest\"",
+                  "descHtml": "恢复最近一次会话"
+                },
+                {
+                  "keyHtml": "gemini -r \"latest\" \"query\"",
+                  "descHtml": "恢复最近会话并追加新提示"
+                },
+                {
+                  "keyHtml": "gemini -r \"&lt;session-id&gt;\"",
+                  "descHtml": "按会话 ID 继续历史任务"
+                },
+                {
+                  "keyHtml": "gemini update",
+                  "descHtml": "更新到最新版本"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "className": "section-mcp",
+          "header": "🔌 MCP 与外部工具",
+          "groups": [
+            {
+              "title": "MCP 管理",
+              "rows": [
+                {
+                  "keyHtml": "gemini mcp",
+                  "descHtml": "配置和管理 MCP 服务器"
+                },
+                {
+                  "keyHtml": "/mcp reload",
+                  "descHtml": "重启并重新加载 MCP 服务器"
+                },
+                {
+                  "keyHtml": "mcp.serverCommand",
+                  "descHtml": "配置 MCP 服务器启动命令"
+                },
+                {
+                  "keyHtml": "mcp.allowed / mcp.excluded",
+                  "descHtml": "控制允许和排除的 MCP 列表"
+                }
+              ]
+            },
+            {
+              "title": "扩展能力",
+              "rows": [
+                {
+                  "keyHtml": "gemini extensions",
+                  "descHtml": "管理 Gemini CLI extensions"
+                },
+                {
+                  "keyHtml": "/extensions reload",
+                  "descHtml": "重载所有启用的 extensions"
+                },
+                {
+                  "keyHtml": "Extension features",
+                  "descHtml": "可扩展工具、命令、上下文与 MCP server"
+                },
+                {
+                  "keyHtml": "gemini-extension.json",
+                  "descHtml": "extension 配置可引用环境变量"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "className": "section-slash-memory",
+      "sections": [
+        {
+          "className": "section-slash",
+          "header": "⚡ Slash Commands",
+          "groups": [
+            {
+              "title": "常用命令",
+              "rows": [
+                {
+                  "keyHtml": "/help",
+                  "descHtml": "查看全部可用命令"
+                },
+                {
+                  "keyHtml": "/quit",
+                  "descHtml": "退出当前交互会话"
+                },
+                {
+                  "keyHtml": "/skills reload",
+                  "descHtml": "重载发现到的 skills"
+                },
+                {
+                  "keyHtml": "/agents reload",
+                  "descHtml": "重载 agent registry"
+                }
+              ]
+            },
+            {
+              "title": "热重载",
+              "rows": [
+                {
+                  "keyHtml": "/commands reload",
+                  "descHtml": "重载自定义 slash commands"
+                },
+                {
+                  "keyHtml": "/memory reload",
+                  "descHtml": "重载上下文文件，例如 <code>GEMINI.md</code>"
+                },
+                {
+                  "keyHtml": "/mcp reload",
+                  "descHtml": "刷新 MCP 服务器连接"
+                },
+                {
+                  "keyHtml": "/extensions reload",
+                  "descHtml": "重载所有当前激活的扩展"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "className": "section-memory",
+          "header": "📁 配置与规则",
+          "groups": [
+            {
+              "title": "核心文件",
+              "rows": [
+                {
+                  "keyHtml": "GEMINI.md",
+                  "descHtml": "项目上下文文件，可被 <code>/memory reload</code> 重新载入"
+                },
+                {
+                  "keyHtml": "~/.gemini/settings.json",
+                  "descHtml": "用户级设置"
+                },
+                {
+                  "keyHtml": ".gemini/settings.json",
+                  "descHtml": "项目级设置，优先级高于用户级"
+                },
+                {
+                  "keyHtml": ".gemini/sandbox-*",
+                  "descHtml": "项目内自定义沙箱 profile / Dockerfile"
+                }
+              ]
+            },
+            {
+              "title": "认证与上下文",
+              "rows": [
+                {
+                  "keyHtml": "Sign in with Google",
+                  "descHtml": "多数个人用户推荐的默认登录方式"
+                },
+                {
+                  "keyHtml": "GEMINI_API_KEY",
+                  "descHtml": "直接使用 Gemini API key"
+                },
+                {
+                  "keyHtml": "Google Cloud Project",
+                  "descHtml": "组织账号常需要关联 Cloud Project"
+                },
+                {
+                  "keyHtml": "GEMINI_CLI_HOME",
+                  "descHtml": "覆盖 Gemini CLI 的 home 目录"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "className": "section-workflows-config",
+      "sections": [
+        {
+          "className": "section-workflows",
+          "header": "🧠 工作流与自动化",
+          "groups": [
+            {
+              "title": "自动化模式",
+              "rows": [
+                {
+                  "keyHtml": "gemini -p",
+                  "descHtml": "脚本里单次执行最稳妥的入口"
+                },
+                {
+                  "keyHtml": "cat diff.txt | gemini",
+                  "descHtml": "让 Gemini 处理外部命令或文件输出"
+                },
+                {
+                  "keyHtml": "gemini -i",
+                  "descHtml": "先跑一次任务，再转入人机协作"
+                },
+                {
+                  "keyHtml": "gemini -r \"latest\"",
+                  "descHtml": "把同一任务拆成多次终端续跑"
+                }
+              ]
+            },
+            {
+              "title": "适合的工作",
+              "rows": [
+                {
+                  "keyHtml": "Understand code",
+                  "descHtml": "利用本地项目上下文理解代码库"
+                },
+                {
+                  "keyHtml": "Automate tasks",
+                  "descHtml": "把重复说明压成固定 prompt 和命令"
+                },
+                {
+                  "keyHtml": "Build workflows",
+                  "descHtml": "结合 extensions / MCP 组成团队工作流"
+                },
+                {
+                  "keyHtml": "Reload in place",
+                  "descHtml": "改完 context / commands / extensions 后原地热重载"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "className": "section-config",
+          "header": "⚙️ 配置与环境变量",
+          "groups": [
+            {
+              "title": "关键设置",
+              "rows": [
+                {
+                  "keyHtml": "general.defaultApprovalMode",
+                  "descHtml": "默认审批模式：<code>default</code> / <code>auto_edit</code> / <code>plan</code>"
+                },
+                {
+                  "keyHtml": "general.vimMode",
+                  "descHtml": "开启 Vim keybindings"
+                },
+                {
+                  "keyHtml": "general.preferredEditor",
+                  "descHtml": "指定外部编辑器"
+                },
+                {
+                  "keyHtml": "model.name",
+                  "descHtml": "设置默认 Gemini 模型"
+                }
+              ]
+            },
+            {
+              "title": "安全与环境变量",
+              "rows": [
+                {
+                  "keyHtml": "security.disableYoloMode",
+                  "descHtml": "彻底禁用 YOLO mode"
+                },
+                {
+                  "keyHtml": "security.enablePermanentToolApproval",
+                  "descHtml": "允许“以后都批准”这类永久授权"
+                },
+                {
+                  "keyHtml": "GEMINI_MODEL",
+                  "descHtml": "用环境变量覆盖默认模型"
+                },
+                {
+                  "keyHtml": "GEMINI_SANDBOX",
+                  "descHtml": "切换沙箱实现：<code>true</code> / <code>false</code> / <code>docker</code> / <code>podman</code>"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "className": "section-skills-cli",
+      "sections": [
+        {
+          "className": "section-skills",
+          "header": "🔧 Skills 与 Agents",
+          "groups": [
+            {
+              "title": "自定义能力",
+              "rows": [
+                {
+                  "keyHtml": "Skills",
+                  "descHtml": "可发现的技能能力，可用命令热重载"
+                },
+                {
+                  "keyHtml": "Agents",
+                  "descHtml": "agent registry 可单独重载"
+                },
+                {
+                  "keyHtml": "Commands",
+                  "descHtml": "自定义 slash commands"
+                },
+                {
+                  "keyHtml": "Extensions",
+                  "descHtml": "统一承载工具、命令、上下文和 MCP"
+                }
+              ]
+            },
+            {
+              "title": "协作习惯",
+              "rows": [
+                {
+                  "keyHtml": "/skills reload",
+                  "descHtml": "修改技能后立即刷新"
+                },
+                {
+                  "keyHtml": "/agents reload",
+                  "descHtml": "调整 agent registry 后同步刷新"
+                },
+                {
+                  "keyHtml": "/commands reload",
+                  "descHtml": "维护团队命令库时常用"
+                },
+                {
+                  "keyHtml": "/memory reload",
+                  "descHtml": "更新 <code>GEMINI.md</code> 或上下文文件后执行"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "className": "section-cli",
+          "header": "🖥️ CLI 与参数",
+          "groups": [
+            {
+              "title": "安装与登录",
+              "rows": [
+                {
+                  "keyHtml": "npm install -g @google/gemini-cli",
+                  "descHtml": "官方安装方式"
+                },
+                {
+                  "keyHtml": "Start Gemini CLI",
+                  "descHtml": "大多数用户直接运行 <code>gemini</code> 后用 Google 账号登录"
+                },
+                {
+                  "keyHtml": "GEMINI_API_KEY",
+                  "descHtml": "脚本、CI 或 API key 路径常用"
+                },
+                {
+                  "keyHtml": "Organization users",
+                  "descHtml": "企业/学校账号通常还需要 Google Cloud Project"
+                }
+              ]
+            },
+            {
+              "title": "最常记的参数",
+              "rows": [
+                {
+                  "keyHtml": "-p",
+                  "descHtml": "非交互执行"
+                },
+                {
+                  "keyHtml": "-i",
+                  "descHtml": "执行后继续交互"
+                },
+                {
+                  "keyHtml": "-r",
+                  "descHtml": "恢复最近或指定会话"
+                },
+                {
+                  "keyHtml": "extensions / mcp / update",
+                  "descHtml": "扩展、MCP 与版本维护的三个主入口"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "footer": {
+    "rows": [
+      {
+        "html": "<span class=\"footer-label\">关键文件：</span><span class=\"footer-item\"><code>~/.gemini/settings.json</code></span><span class=\"footer-sep\">·</span><span class=\"footer-item\"><code>.gemini/settings.json</code></span><span class=\"footer-sep\">·</span><span class=\"footer-item\"><code>GEMINI.md</code></span><span class=\"footer-sep\">·</span><span class=\"footer-item\"><code>gemini-extension.json</code></span>"
+      },
+      {
+        "html": "<span class=\"footer-label\">关键环境：</span><span class=\"footer-item\"><code>GEMINI_API_KEY</code></span><span class=\"footer-sep\">·</span><span class=\"footer-item\"><code>GEMINI_MODEL</code></span><span class=\"footer-sep\">·</span><span class=\"footer-item\"><code>GEMINI_CLI_HOME</code></span><span class=\"footer-sep\">·</span><span class=\"footer-item\"><code>GEMINI_SANDBOX</code></span>"
+      }
+    ]
+  }
+}

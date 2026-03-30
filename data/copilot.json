@@ -1,0 +1,518 @@
+{
+  "id": "copilot",
+  "navLabel": "GitHub Copilot CLI",
+  "pageClass": "page-copilot",
+  "title": {
+    "zh": "GitHub Copilot CLI 中文速查表",
+    "en": "GitHub Copilot CLI Cheat Sheet"
+  },
+  "description": {
+    "zh": "GitHub Copilot CLI 中文速查表，整理交互快捷键、Slash Commands、权限模式、MCP、Agents、Plugins 与自动化参数。",
+    "en": "GitHub Copilot CLI cheat sheet covering interactive shortcuts, slash commands, permission controls, MCP, agents, plugins, and automation flags."
+  },
+  "versionInfo": {
+    "zh": "GitHub Copilot CLI（public preview）",
+    "en": "GitHub Copilot CLI (public preview)"
+  },
+  "lastUpdated": {
+    "zh": "资料核对：2026 年 3 月 30 日",
+    "en": "Verified: March 30, 2026"
+  },
+  "changelog": {
+    "href": "https://docs.github.com/en/copilot/reference/copilot-cli-reference/cli-command-reference",
+    "label": {
+      "zh": "📋 资料来源",
+      "en": "📋 Sources"
+    },
+    "items": [
+      {
+        "zh": "基于 GitHub Copilot CLI command reference、about、install 与 use 文档整理",
+        "en": "Compiled from the GitHub Copilot CLI command reference, about, install, and usage docs"
+      },
+      {
+        "zh": "重点覆盖交互快捷键、Slash Commands、权限规则、MCP、skills 与 custom agents",
+        "en": "Focuses on interactive shortcuts, slash commands, permission rules, MCP, skills, and custom agents"
+      },
+      {
+        "zh": "官方文档当前仍注明 Copilot CLI 处于 public preview",
+        "en": "The official docs still mark Copilot CLI as being in public preview"
+      },
+      {
+        "zh": "很适合终端里的仓库、PR、issue、workflow 场景",
+        "en": "Particularly useful for repository, PR, issue, and workflow tasks from the terminal"
+      }
+    ]
+  },
+  "columns": [
+    {
+      "className": "section-keyboard-mcp",
+      "sections": [
+        {
+          "className": "section-keyboard",
+          "header": "⌨️ 交互与快捷键",
+          "groups": [
+            {
+              "title": "输入与控制",
+              "rows": [
+                {
+                  "keyHtml": "@ FILENAME",
+                  "descHtml": "把文件内容加入上下文"
+                },
+                {
+                  "keyHtml": "! COMMAND",
+                  "descHtml": "绕过 Copilot，直接执行本地 shell"
+                },
+                {
+                  "keyHtml": "<span class=\"keycap\">Ctrl</span><span class=\"keycap\">C</span>",
+                  "descHtml": "取消操作；连续按两次退出"
+                },
+                {
+                  "keyHtml": "<span class=\"keycap\">Ctrl</span><span class=\"keycap\">D</span>",
+                  "descHtml": "关闭 CLI"
+                },
+                {
+                  "keyHtml": "<span class=\"keycap\">Ctrl</span><span class=\"keycap\">L</span>",
+                  "descHtml": "清屏"
+                },
+                {
+                  "keyHtml": "<span class=\"keycap\">Shift</span><span class=\"keycap\">Tab</span>",
+                  "descHtml": "在 standard / plan / autopilot 之间轮换"
+                }
+              ]
+            },
+            {
+              "title": "时间线与导航",
+              "rows": [
+                {
+                  "keyHtml": "<span class=\"keycap\">Ctrl</span><span class=\"keycap\">O</span>",
+                  "descHtml": "展开最近时间线项"
+                },
+                {
+                  "keyHtml": "<span class=\"keycap\">Ctrl</span><span class=\"keycap\">E</span>",
+                  "descHtml": "展开全部时间线项"
+                },
+                {
+                  "keyHtml": "<span class=\"keycap\">Ctrl</span><span class=\"keycap\">T</span>",
+                  "descHtml": "展开/折叠 reasoning"
+                },
+                {
+                  "keyHtml": "<span class=\"keycap\">Ctrl</span><span class=\"keycap\">G</span>",
+                  "descHtml": "在外部编辑器里编辑提示"
+                },
+                {
+                  "keyHtml": "<span class=\"keycap\">↑↓</span>",
+                  "descHtml": "浏览命令历史"
+                },
+                {
+                  "keyHtml": "<span class=\"keycap\">Ctrl</span><span class=\"keycap\">X</span> <span class=\"keycap\">/</span>",
+                  "descHtml": "输入一半时插入 slash command"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "className": "section-mcp",
+          "header": "🔌 MCP 与外部工具",
+          "groups": [
+            {
+              "title": "内置 MCP",
+              "rows": [
+                {
+                  "keyHtml": "github-mcp-server",
+                  "descHtml": "GitHub API、PR、issue、code search、Actions"
+                },
+                {
+                  "keyHtml": "playwright",
+                  "descHtml": "浏览器自动化、截图、点击、表单"
+                },
+                {
+                  "keyHtml": "fetch",
+                  "descHtml": "通过 <code>fetch</code> 访问 HTTP"
+                },
+                {
+                  "keyHtml": "time",
+                  "descHtml": "获取当前时间与时区转换"
+                }
+              ]
+            },
+            {
+              "title": "配置与信任",
+              "rows": [
+                {
+                  "keyHtml": "~/.copilot/mcp-config.json",
+                  "descHtml": "持久 MCP 配置"
+                },
+                {
+                  "keyHtml": "--additional-mcp-config",
+                  "descHtml": "为当前 session 额外添加 MCP"
+                },
+                {
+                  "keyHtml": "--disable-builtin-mcps",
+                  "descHtml": "禁用全部内置 MCP"
+                },
+                {
+                  "keyHtml": "--disable-mcp-server=NAME",
+                  "descHtml": "禁用单个 MCP server"
+                },
+                {
+                  "keyHtml": "local / http / sse",
+                  "descHtml": "支持本地 stdio、streamable HTTP、SSE"
+                },
+                {
+                  "keyHtml": "All MCP tool invocations",
+                  "descHtml": "外部服务上的 MCP 工具调用都要显式批准"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "className": "section-slash-memory",
+      "sections": [
+        {
+          "className": "section-slash",
+          "header": "⚡ Slash Commands",
+          "groups": [
+            {
+              "title": "核心命令",
+              "rows": [
+                {
+                  "keyHtml": "/help",
+                  "descHtml": "查看交互命令帮助"
+                },
+                {
+                  "keyHtml": "/init",
+                  "descHtml": "初始化仓库级指令和 agentic features"
+                },
+                {
+                  "keyHtml": "/model",
+                  "descHtml": "切换当前模型"
+                },
+                {
+                  "keyHtml": "/plan",
+                  "descHtml": "先规划再执行"
+                },
+                {
+                  "keyHtml": "/review",
+                  "descHtml": "运行代码评审 agent"
+                },
+                {
+                  "keyHtml": "/resume",
+                  "descHtml": "切换到其他 session"
+                }
+              ]
+            },
+            {
+              "title": "高级操作",
+              "rows": [
+                {
+                  "keyHtml": "/delegate",
+                  "descHtml": "把任务委派到远程仓库并生成 PR"
+                },
+                {
+                  "keyHtml": "/fleet",
+                  "descHtml": "并行运行子 agent"
+                },
+                {
+                  "keyHtml": "/mcp",
+                  "descHtml": "增删启停 MCP 配置"
+                },
+                {
+                  "keyHtml": "/plugin",
+                  "descHtml": "管理插件和 marketplace"
+                },
+                {
+                  "keyHtml": "/session",
+                  "descHtml": "查看 checkpoints / files / plan / rename"
+                },
+                {
+                  "keyHtml": "/usage",
+                  "descHtml": "查看 usage metrics 与统计"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "className": "section-memory",
+          "header": "📁 配置与规则",
+          "groups": [
+            {
+              "title": "配置层级",
+              "rows": [
+                {
+                  "keyHtml": "~/.copilot/config.json",
+                  "descHtml": "用户级全局配置"
+                },
+                {
+                  "keyHtml": ".github/copilot/settings.json",
+                  "descHtml": "仓库共享设置"
+                },
+                {
+                  "keyHtml": ".github/copilot/settings.local.json",
+                  "descHtml": "个人本地覆盖，建议加入 <code>.gitignore</code>"
+                },
+                {
+                  "keyHtml": "AGENTS.md",
+                  "descHtml": "自定义 instructions；可用 <code>--no-custom-instructions</code> 关闭"
+                }
+              ]
+            },
+            {
+              "title": "Skills / Agents / Hooks",
+              "rows": [
+                {
+                  "keyHtml": ".github/skills/ / .agents/skills/",
+                  "descHtml": "项目级 skills 目录"
+                },
+                {
+                  "keyHtml": "~/.copilot/skills/",
+                  "descHtml": "个人技能目录"
+                },
+                {
+                  "keyHtml": ".github/agents/ / ~/.copilot/agents/",
+                  "descHtml": "自定义 agents"
+                },
+                {
+                  "keyHtml": ".github/hooks/*.json",
+                  "descHtml": "sessionStart / preToolUse 等 hook 配置"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "className": "section-workflows-config",
+      "sections": [
+        {
+          "className": "section-workflows",
+          "header": "🧠 工作流与自动化",
+          "groups": [
+            {
+              "title": "程序化执行",
+              "rows": [
+                {
+                  "keyHtml": "-p / --prompt",
+                  "descHtml": "程序化执行 prompt，完成后退出"
+                },
+                {
+                  "keyHtml": "--output-format=json",
+                  "descHtml": "输出 JSONL 事件流"
+                },
+                {
+                  "keyHtml": "--silent",
+                  "descHtml": "只输出 agent 回复，便于脚本消费"
+                },
+                {
+                  "keyHtml": "--share / --share-gist",
+                  "descHtml": "程序化 session 结束后导出 Markdown 或 secret gist"
+                },
+                {
+                  "keyHtml": "--continue / --resume",
+                  "descHtml": "恢复最近或指定 session"
+                }
+              ]
+            },
+            {
+              "title": "GitHub 场景",
+              "rows": [
+                {
+                  "keyHtml": "List my open PRs",
+                  "descHtml": "直接查询你的 GitHub 工作项"
+                },
+                {
+                  "keyHtml": "Start working on this issue",
+                  "descHtml": "从 issue 开分支并开始实现"
+                },
+                {
+                  "keyHtml": "Create a PR",
+                  "descHtml": "在 GitHub 上代表你创建 PR"
+                },
+                {
+                  "keyHtml": "Check PR changes",
+                  "descHtml": "让 Copilot 检查 PR 改动中的严重问题"
+                },
+                {
+                  "keyHtml": "Use the GitHub MCP server",
+                  "descHtml": "需要明确指定工具时可在 prompt 里点名 GitHub MCP"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "className": "section-config",
+          "header": "⚙️ 沙箱与审批",
+          "groups": [
+            {
+              "title": "权限旗标",
+              "rows": [
+                {
+                  "keyHtml": "--allow-all / --yolo",
+                  "descHtml": "放开所有工具、路径和 URL"
+                },
+                {
+                  "keyHtml": "--allow-tool / --deny-tool",
+                  "descHtml": "按工具模式精细授权"
+                },
+                {
+                  "keyHtml": "--deny-url",
+                  "descHtml": "按域名或 URL 拒绝访问"
+                },
+                {
+                  "keyHtml": "--add-dir",
+                  "descHtml": "把额外目录加入可访问列表"
+                },
+                {
+                  "keyHtml": "--disallow-temp-dir",
+                  "descHtml": "禁止自动访问系统临时目录"
+                }
+              ]
+            },
+            {
+              "title": "审批响应",
+              "rows": [
+                {
+                  "keyHtml": "y",
+                  "descHtml": "只允许本次请求"
+                },
+                {
+                  "keyHtml": "n",
+                  "descHtml": "只拒绝本次请求"
+                },
+                {
+                  "keyHtml": "!",
+                  "descHtml": "本 session 内允许同类请求"
+                },
+                {
+                  "keyHtml": "#",
+                  "descHtml": "本 session 内拒绝同类请求"
+                },
+                {
+                  "keyHtml": "?",
+                  "descHtml": "查看详细说明"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "className": "section-skills-cli",
+      "sections": [
+        {
+          "className": "section-skills",
+          "header": "🔧 Skills 与 Agents",
+          "groups": [
+            {
+              "title": "内置 agents",
+              "rows": [
+                {
+                  "keyHtml": "code-review",
+                  "descHtml": "高信噪比代码评审"
+                },
+                {
+                  "keyHtml": "explore",
+                  "descHtml": "快速代码库探索，可并行运行"
+                },
+                {
+                  "keyHtml": "general-purpose",
+                  "descHtml": "复杂多步任务的全能力 agent"
+                },
+                {
+                  "keyHtml": "research / task",
+                  "descHtml": "深度研究或命令执行型 agent"
+                }
+              ]
+            },
+            {
+              "title": "扩展与目录",
+              "rows": [
+                {
+                  "keyHtml": "copilot plugin",
+                  "descHtml": "管理 plugins 和 marketplace"
+                },
+                {
+                  "keyHtml": "COPILOT_SKILLS_DIRS",
+                  "descHtml": "额外 skills 目录"
+                },
+                {
+                  "keyHtml": "COPILOT_CUSTOM_INSTRUCTIONS_DIRS",
+                  "descHtml": "额外 instructions 目录"
+                },
+                {
+                  "keyHtml": "Custom agents frontmatter",
+                  "descHtml": "可指定 model、tools、mcp-servers、infer 等"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "className": "section-cli",
+          "header": "🖥️ CLI 与参数",
+          "groups": [
+            {
+              "title": "安装与登录",
+              "rows": [
+                {
+                  "keyHtml": "npm install -g @github/copilot",
+                  "descHtml": "官方安装 / 更新命令"
+                },
+                {
+                  "keyHtml": "copilot login",
+                  "descHtml": "通过 OAuth device flow 登录 GitHub"
+                },
+                {
+                  "keyHtml": "copilot logout",
+                  "descHtml": "退出并删除本地凭据"
+                },
+                {
+                  "keyHtml": "Node.js 22+ / npm 10+",
+                  "descHtml": "安装前置要求"
+                }
+              ]
+            },
+            {
+              "title": "基础命令",
+              "rows": [
+                {
+                  "keyHtml": "copilot",
+                  "descHtml": "启动交互界面"
+                },
+                {
+                  "keyHtml": "copilot init",
+                  "descHtml": "初始化仓库级自定义指令"
+                },
+                {
+                  "keyHtml": "copilot update / version",
+                  "descHtml": "升级或查看版本"
+                },
+                {
+                  "keyHtml": "copilot help [topic]",
+                  "descHtml": "查看 config / commands / environment / logging / permissions"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "footer": {
+    "rows": [
+      {
+        "html": "<span class=\"footer-label\">权限旗标：</span><span class=\"footer-item\"><code>--allow-all</code></span><span class=\"footer-sep\">·</span><span class=\"footer-item\"><code>--allow-tool</code></span><span class=\"footer-sep\">·</span><span class=\"footer-item\"><code>--deny-tool</code></span><span class=\"footer-sep\">·</span><span class=\"footer-item\"><code>--deny-url</code></span><span class=\"footer-sep\">·</span><span class=\"footer-item\"><code>--add-dir</code></span>"
+      },
+      {
+        "html": "<span class=\"footer-label\">关键文件：</span><span class=\"footer-item\"><code>~/.copilot/config.json</code></span><span class=\"footer-sep\">·</span><span class=\"footer-item\"><code>~/.copilot/mcp-config.json</code></span><span class=\"footer-sep\">·</span><span class=\"footer-item\"><code>.github/copilot/settings.json</code></span><span class=\"footer-sep\">·</span><span class=\"footer-item\"><code>.github/hooks/*.json</code></span>"
+      }
+    ]
+  }
+}

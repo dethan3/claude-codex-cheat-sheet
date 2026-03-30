@@ -1,5 +1,6 @@
 {
   "id": "claude",
+  "navLabel": "Claude Code",
   "pageClass": "page-claude",
   "title": "Claude Code 中文速查表",
   "description": "Claude Code 中文速查表，面向中文开发者整理的快捷键、斜杠命令、CLI 参数、MCP、Memory、Skills、Agents 与环境变量参考。",

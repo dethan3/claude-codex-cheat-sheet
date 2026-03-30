@@ -5,11 +5,7 @@ import { fileURLToPath } from "node:url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const ROOT = path.resolve(__dirname, "..");
-
-const SHELLS = [
-  { output: "index.html", defaultProduct: "claude" },
-  { output: "codex.html", defaultProduct: "codex" },
-];
+const APP_TITLE = "Agent Cheat Sheet";
 
 const FAVICON =
   "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⌨️</text></svg>";
@@ -34,16 +30,39 @@ function serializeForScript(value) {
   return JSON.stringify(value).replace(/<\//g, "<\\/");
 }
 
+function getStaticText(value) {
+  if (value && typeof value === "object" && !Array.isArray(value)) {
+    if (typeof value.zh === "string") {
+      return value.zh;
+    }
+
+    if (typeof value.en === "string") {
+      return value.en;
+    }
+  }
+
+  return typeof value === "string" ? value : "";
+}
+
+function renderProductSwitch(appData) {
+  return appData.productOrder.map((productId) => {
+    const product = appData.products[productId];
+    const label = getStaticText(product?.navLabel || product?.title || productId);
+    return `<button class="mode-btn" data-product="${productId}">${label}</button>`;
+  }).join("");
+}
+
 function renderShell({ defaultProduct, appData }) {
   const initialPage = appData.products[defaultProduct];
+  const initialDescription = getStaticText(initialPage.description);
 
   return `<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="${initialPage.description}">
-  <title>${initialPage.title}</title>
+  <meta name="description" content="${initialDescription}">
+  <title>${APP_TITLE}</title>
   <link rel="icon" href="${FAVICON}">
   <link rel="stylesheet" href="./styles.css">
 </head>
@@ -51,8 +70,7 @@ function renderShell({ defaultProduct, appData }) {
     <div class="toolbar-shell">
       <div class="header-toolbar">
         <div class="mode-switch product-switch" id="productSwitch" aria-label="Cheat sheet">
-          <button class="mode-btn" data-product="claude">Claude Code</button>
-          <button class="mode-btn" data-product="codex">OpenAI Codex</button>
+          ${renderProductSwitch(appData)}
         </div>
         <div class="toolbar-actions">
           <div class="mode-switch lang-switch" id="langSwitch" aria-label="Language">
@@ -68,11 +86,11 @@ ${renderOsToggle()}
       <header class="header header-app">
         <div class="header-body">
           <div class="title-stack">
-            <h1 id="pageTitle">${initialPage.title}</h1>
+            <h1 id="pageTitle">${APP_TITLE}</h1>
           </div>
           <div class="header-meta">
-            <span class="version-info" id="versionInfo">${initialPage.versionInfo}</span>
-            <span class="last-updated" id="lastUpdated">${initialPage.lastUpdated}</span>
+            <span class="version-info" id="versionInfo">${getStaticText(initialPage.versionInfo)}</span>
+            <span class="last-updated" id="lastUpdated">${getStaticText(initialPage.lastUpdated)}</span>
           </div>
         </div>
       </header>
@@ -95,23 +113,32 @@ async function loadJson(relativePath) {
 }
 
 async function build() {
-  const [claude, codex, translations] = await Promise.all([
-    loadJson("data/claude.json"),
-    loadJson("data/codex.json"),
+  const [catalog, translations] = await Promise.all([
+    loadJson("data/catalog.json"),
     loadJson("data/translations.en.json"),
   ]);
 
+  const productRecords = await Promise.all(
+    catalog.products.map(async (entry) => {
+      const product = await loadJson(entry.file);
+
+      if (product.id !== entry.id) {
+        throw new Error(`Catalog id "${entry.id}" does not match product file id "${product.id}"`);
+      }
+
+      return [entry.id, product];
+    })
+  );
+
   const appData = {
-    products: {
-      claude,
-      codex,
-    },
+    productOrder: catalog.products.map((entry) => entry.id),
+    products: Object.fromEntries(productRecords),
     translations,
   };
 
-  for (const shell of SHELLS) {
-    const html = renderShell({ defaultProduct: shell.defaultProduct, appData });
-    await writeFile(path.join(ROOT, shell.output), html, "utf8");
+  for (const entry of catalog.entries) {
+    const html = renderShell({ defaultProduct: entry.product, appData });
+    await writeFile(path.join(ROOT, entry.output), html, "utf8");
   }
 }
 

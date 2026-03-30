@@ -1,0 +1,478 @@
+{
+  "id": "opencode",
+  "navLabel": "OpenCode CLI",
+  "pageClass": "page-opencode",
+  "title": {
+    "zh": "OpenCode CLI 中文速查表",
+    "en": "OpenCode CLI Cheat Sheet"
+  },
+  "description": {
+    "zh": "OpenCode CLI 中文速查表，整理 TUI、headless run/serve、permissions、agents、skills、commands 与 providers。",
+    "en": "OpenCode CLI cheat sheet covering the TUI, headless run/serve flows, permissions, agents, skills, commands, and providers."
+  },
+  "versionInfo": {
+    "zh": "OpenCode CLI",
+    "en": "OpenCode CLI"
+  },
+  "lastUpdated": {
+    "zh": "资料核对：2026 年 3 月 30 日",
+    "en": "Verified: March 30, 2026"
+  },
+  "changelog": {
+    "href": "https://opencode.ai/docs/",
+    "label": {
+      "zh": "📋 资料来源",
+      "en": "📋 Sources"
+    },
+    "items": [
+      {
+        "zh": "基于 OpenCode 官方 Intro、CLI、TUI、Commands、Config、Permissions、Agents 与 Skills 文档整理",
+        "en": "Compiled from the official OpenCode Intro, CLI, TUI, Commands, Config, Permissions, Agents, and Skills docs"
+      },
+      {
+        "zh": "覆盖交互式 TUI、headless server、会话导入导出、权限规则、providers 与自定义 agents",
+        "en": "Covers the interactive TUI, headless server, session import/export, permission rules, providers, and custom agents"
+      },
+      {
+        "zh": "OpenCode 是开源终端 coding agent，文档对自定义 commands / skills / permissions 写得很细",
+        "en": "OpenCode is an open source terminal coding agent with detailed docs for custom commands, skills, and permissions"
+      },
+      {
+        "zh": "适合做一页式“怎么跑、怎么配、怎么放权限”的速查表",
+        "en": "A strong fit for a one-page reference on how to run it, configure it, and control permissions"
+      }
+    ]
+  },
+  "columns": [
+    {
+      "className": "section-keyboard-mcp",
+      "sections": [
+        {
+          "className": "section-keyboard",
+          "header": "⌨️ 交互与快捷键",
+          "groups": [
+            {
+              "title": "TUI 内置命令",
+              "rows": [
+                {
+                  "keyHtml": "/help",
+                  "descHtml": "打开帮助对话框"
+                },
+                {
+                  "keyHtml": "/init",
+                  "descHtml": "创建或更新 <code>AGENTS.md</code>"
+                },
+                {
+                  "keyHtml": "/new",
+                  "descHtml": "新建会话（<code>/clear</code> 别名）"
+                },
+                {
+                  "keyHtml": "/undo / /redo",
+                  "descHtml": "回退或重做最近一轮；文件改动也会跟着回退"
+                },
+                {
+                  "keyHtml": "/share / /unshare",
+                  "descHtml": "分享或取消分享当前会话"
+                }
+              ]
+            },
+            {
+              "title": "默认 keybinds",
+              "rows": [
+                {
+                  "keyHtml": "<span class=\"keycap\">Ctrl</span><span class=\"keycap\">X</span> <span class=\"keycap\">E</span>",
+                  "descHtml": "打开外部编辑器（<code>/editor</code>）"
+                },
+                {
+                  "keyHtml": "<span class=\"keycap\">Ctrl</span><span class=\"keycap\">X</span> <span class=\"keycap\">Q</span>",
+                  "descHtml": "退出应用（<code>/exit</code>）"
+                },
+                {
+                  "keyHtml": "<span class=\"keycap\">Ctrl</span><span class=\"keycap\">X</span> <span class=\"keycap\">N</span>",
+                  "descHtml": "新建会话"
+                },
+                {
+                  "keyHtml": "<span class=\"keycap\">Ctrl</span><span class=\"keycap\">X</span> <span class=\"keycap\">X</span>",
+                  "descHtml": "导出当前会话"
+                },
+                {
+                  "keyHtml": "<span class=\"keycap\">Esc</span>",
+                  "descHtml": "中断当前 session"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "className": "section-mcp",
+          "header": "🔌 MCP 与外部工具",
+          "groups": [
+            {
+              "title": "配置入口",
+              "rows": [
+                {
+                  "keyHtml": "mcp",
+                  "descHtml": "在 <code>opencode.json</code> 里配置 MCP servers"
+                },
+                {
+                  "keyHtml": "permission.webfetch / websearch",
+                  "descHtml": "控制联网工具是否要审批"
+                },
+                {
+                  "keyHtml": "LSP / skill / task",
+                  "descHtml": "权限系统可直接控制这些内置能力"
+                },
+                {
+                  "keyHtml": "custom tools",
+                  "descHtml": "OpenCode 也支持自定义工具和命令"
+                }
+              ]
+            },
+            {
+              "title": "常见外部能力",
+              "rows": [
+                {
+                  "keyHtml": "read / edit / bash",
+                  "descHtml": "文件与命令能力都能单独配权限"
+                },
+                {
+                  "keyHtml": "webfetch / websearch / codesearch",
+                  "descHtml": "网页与代码搜索可分别管控"
+                },
+                {
+                  "keyHtml": "external_directory",
+                  "descHtml": "访问工作区外路径时触发"
+                },
+                {
+                  "keyHtml": "doom_loop",
+                  "descHtml": "同一工具重复 3 次会触发保护"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "className": "section-slash-memory",
+      "sections": [
+        {
+          "className": "section-slash",
+          "header": "⚡ Slash Commands",
+          "groups": [
+            {
+              "title": "Built-in commands",
+              "rows": [
+                {
+                  "keyHtml": "/init",
+                  "descHtml": "生成 <code>AGENTS.md</code>"
+                },
+                {
+                  "keyHtml": "/undo",
+                  "descHtml": "撤销最近一条消息和相关文件改动"
+                },
+                {
+                  "keyHtml": "/redo",
+                  "descHtml": "恢复被撤销的内容"
+                },
+                {
+                  "keyHtml": "/share",
+                  "descHtml": "分享当前会话"
+                },
+                {
+                  "keyHtml": "/models",
+                  "descHtml": "列出可用模型"
+                }
+              ]
+            },
+            {
+              "title": "自定义 commands",
+              "rows": [
+                {
+                  "keyHtml": ".opencode/commands/*.md",
+                  "descHtml": "用 Markdown 文件定义自定义命令"
+                },
+                {
+                  "keyHtml": "description / agent / model",
+                  "descHtml": "frontmatter 里常用的命令属性"
+                },
+                {
+                  "keyHtml": "/my-command",
+                  "descHtml": "输入斜杠后直接调用自定义模板"
+                },
+                {
+                  "keyHtml": "template + shell output + file refs",
+                  "descHtml": "命令模板支持参数、shell 输出和文件引用"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "className": "section-memory",
+          "header": "📁 配置与规则",
+          "groups": [
+            {
+              "title": "配置文件",
+              "rows": [
+                {
+                  "keyHtml": "opencode.json / opencode.jsonc",
+                  "descHtml": "核心配置文件，支持 JSONC"
+                },
+                {
+                  "keyHtml": "$schema: https://opencode.ai/config.json",
+                  "descHtml": "官方 schema"
+                },
+                {
+                  "keyHtml": "instructions",
+                  "descHtml": "引用 <code>AGENTS.md</code>、规则文件或 glob"
+                },
+                {
+                  "keyHtml": "compaction",
+                  "descHtml": "控制自动压缩、prune 与保留 token"
+                }
+              ]
+            },
+            {
+              "title": "凭据与会话",
+              "rows": [
+                {
+                  "keyHtml": "~/.local/share/opencode/auth.json",
+                  "descHtml": "provider 凭据存储位置"
+                },
+                {
+                  "keyHtml": "opencode export [sessionID]",
+                  "descHtml": "把会话导出为 JSON"
+                },
+                {
+                  "keyHtml": "opencode import &lt;file|url&gt;",
+                  "descHtml": "从文件或分享链接导入会话"
+                },
+                {
+                  "keyHtml": "opencode session list",
+                  "descHtml": "列出历史会话"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "className": "section-workflows-config",
+      "sections": [
+        {
+          "className": "section-workflows",
+          "header": "🧠 工作流与自动化",
+          "groups": [
+            {
+              "title": "Headless / server",
+              "rows": [
+                {
+                  "keyHtml": "opencode serve",
+                  "descHtml": "启动 headless server"
+                },
+                {
+                  "keyHtml": "opencode run \"task\"",
+                  "descHtml": "直接跑一次任务"
+                },
+                {
+                  "keyHtml": "opencode run --attach http://localhost:4096",
+                  "descHtml": "连到已运行的 server"
+                },
+                {
+                  "keyHtml": "opencode web",
+                  "descHtml": "启动带 Web UI 的 headless server"
+                }
+              ]
+            },
+            {
+              "title": "会话管理",
+              "rows": [
+                {
+                  "keyHtml": "--continue / -c",
+                  "descHtml": "继续最近一次 session"
+                },
+                {
+                  "keyHtml": "--session / -s",
+                  "descHtml": "指定 session ID"
+                },
+                {
+                  "keyHtml": "--fork",
+                  "descHtml": "从旧 session 分叉继续"
+                },
+                {
+                  "keyHtml": "--share",
+                  "descHtml": "任务结束后直接分享"
+                },
+                {
+                  "keyHtml": "opencode stats",
+                  "descHtml": "查看 token 和费用统计"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "className": "section-config",
+          "header": "⚙️ 沙箱与审批",
+          "groups": [
+            {
+              "title": "permission 语义",
+              "rows": [
+                {
+                  "keyHtml": "\"allow\"",
+                  "descHtml": "无需审批直接执行"
+                },
+                {
+                  "keyHtml": "\"ask\"",
+                  "descHtml": "执行前询问"
+                },
+                {
+                  "keyHtml": "\"deny\"",
+                  "descHtml": "直接阻止"
+                },
+                {
+                  "keyHtml": "\"*\" first, specific later",
+                  "descHtml": "规则按最后一个匹配项生效"
+                }
+              ]
+            },
+            {
+              "title": "常见权限键",
+              "rows": [
+                {
+                  "keyHtml": "bash / edit / read",
+                  "descHtml": "命令、修改、读取"
+                },
+                {
+                  "keyHtml": "skill / task / lsp",
+                  "descHtml": "skills、子 agent、LSP 能力"
+                },
+                {
+                  "keyHtml": "external_directory",
+                  "descHtml": "访问工作区外路径"
+                },
+                {
+                  "keyHtml": "doom_loop",
+                  "descHtml": "重复工具调用保护"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "className": "section-skills-cli",
+      "sections": [
+        {
+          "className": "section-skills",
+          "header": "🔧 Skills 与 Agents",
+          "groups": [
+            {
+              "title": "Agents",
+              "rows": [
+                {
+                  "keyHtml": "Build / Plan",
+                  "descHtml": "内置 primary agents；<code>Tab</code> 可切换"
+                },
+                {
+                  "keyHtml": "@agent",
+                  "descHtml": "在会话里通过 mention 调用 agent"
+                },
+                {
+                  "keyHtml": "opencode agent create",
+                  "descHtml": "创建自定义 agent"
+                },
+                {
+                  "keyHtml": "opencode agent list",
+                  "descHtml": "列出全部 agents"
+                }
+              ]
+            },
+            {
+              "title": "Skills",
+              "rows": [
+                {
+                  "keyHtml": ".opencode/skills/&lt;name&gt;/SKILL.md",
+                  "descHtml": "项目级 OpenCode skills"
+                },
+                {
+                  "keyHtml": "~/.config/opencode/skills/&lt;name&gt;/SKILL.md",
+                  "descHtml": "全局 skills"
+                },
+                {
+                  "keyHtml": ".claude/skills/ / .agents/skills/",
+                  "descHtml": "兼容 Claude / agents 目录结构"
+                },
+                {
+                  "keyHtml": "permission.skill",
+                  "descHtml": "可单独控制 skill 的可见性和加载权限"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "className": "section-cli",
+          "header": "🖥️ CLI 与参数",
+          "groups": [
+            {
+              "title": "安装与认证",
+              "rows": [
+                {
+                  "keyHtml": "curl -fsSL https://opencode.ai/install | bash",
+                  "descHtml": "官方安装脚本"
+                },
+                {
+                  "keyHtml": "opencode auth login",
+                  "descHtml": "配置任意 provider 的 API key"
+                },
+                {
+                  "keyHtml": "Providers via Models.dev",
+                  "descHtml": "支持 75+ providers，也支持本地模型"
+                },
+                {
+                  "keyHtml": "~/.local/share/opencode/auth.json",
+                  "descHtml": "凭据存储位置"
+                }
+              ]
+            },
+            {
+              "title": "高频参数",
+              "rows": [
+                {
+                  "keyHtml": "--model / -m",
+                  "descHtml": "指定 provider/model"
+                },
+                {
+                  "keyHtml": "--agent",
+                  "descHtml": "指定 agent"
+                },
+                {
+                  "keyHtml": "--file / -f",
+                  "descHtml": "附加文件到消息"
+                },
+                {
+                  "keyHtml": "--format json",
+                  "descHtml": "输出 JSON 事件"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "footer": {
+    "rows": [
+      {
+        "html": "<span class=\"footer-label\">关键文件：</span><span class=\"footer-item\"><code>opencode.json</code></span><span class=\"footer-sep\">·</span><span class=\"footer-item\"><code>AGENTS.md</code></span><span class=\"footer-sep\">·</span><span class=\"footer-item\"><code>.opencode/commands/*.md</code></span><span class=\"footer-sep\">·</span><span class=\"footer-item\"><code>.opencode/skills/*/SKILL.md</code></span>"
+      },
+      {
+        "html": "<span class=\"footer-label\">关键命令：</span><span class=\"footer-item\"><code>opencode run</code></span><span class=\"footer-sep\">·</span><span class=\"footer-item\"><code>opencode serve</code></span><span class=\"footer-sep\">·</span><span class=\"footer-item\"><code>opencode auth login</code></span><span class=\"footer-sep\">·</span><span class=\"footer-item\"><code>opencode session list</code></span>"
+      }
+    ]
+  }
+}

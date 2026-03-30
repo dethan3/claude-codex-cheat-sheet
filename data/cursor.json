@@ -1,0 +1,462 @@
+{
+  "id": "cursor",
+  "navLabel": "Cursor CLI",
+  "pageClass": "page-cursor",
+  "title": {
+    "zh": "Cursor CLI 中文速查表",
+    "en": "Cursor CLI Cheat Sheet"
+  },
+  "description": {
+    "zh": "Cursor CLI 中文速查表，整理交互式 agent、headless 执行、模型切换、MCP 与登录方式。",
+    "en": "Cursor CLI cheat sheet covering the interactive agent, headless execution, model switching, MCP, and authentication."
+  },
+  "versionInfo": {
+    "zh": "Cursor CLI / Cursor Agent",
+    "en": "Cursor CLI / Cursor Agent"
+  },
+  "lastUpdated": {
+    "zh": "资料核对：2026 年 3 月 30 日",
+    "en": "Verified: March 30, 2026"
+  },
+  "changelog": {
+    "href": "https://docs.cursor.com/en/cli",
+    "label": {
+      "zh": "📋 资料来源",
+      "en": "📋 Sources"
+    },
+    "items": [
+      {
+        "zh": "基于 Cursor 官方 CLI 文档、headless 参数页与 shell mode 说明整理",
+        "en": "Compiled from the official Cursor CLI docs, headless flags pages, and shell mode documentation"
+      },
+      {
+        "zh": "覆盖安装、交互式 agent、Cursor Agent、模型切换、MCP 与登录状态",
+        "en": "Covers installation, the interactive agent, Cursor Agent, model switching, MCP, and login state"
+      },
+      {
+        "zh": "很适合终端里做一次性交互、脚本化执行和后台任务",
+        "en": "Well suited for interactive terminal work, scripted execution, and background tasks"
+      },
+      {
+        "zh": "官方文档强调它支持本地终端与 IDE 工作流衔接",
+        "en": "The official docs emphasize tight workflows across the local terminal and IDE"
+      }
+    ]
+  },
+  "columns": [
+    {
+      "className": "section-keyboard-mcp",
+      "sections": [
+        {
+          "className": "section-keyboard",
+          "header": "⌨️ 交互与快捷键",
+          "groups": [
+            {
+              "title": "交互入口",
+              "rows": [
+                {
+                  "keyHtml": "agent",
+                  "descHtml": "启动交互式 terminal agent"
+                },
+                {
+                  "keyHtml": "/ commands",
+                  "descHtml": "在交互界面中运行 slash-style 命令"
+                },
+                {
+                  "keyHtml": "@ files",
+                  "descHtml": "把工作区文件加入上下文"
+                },
+                {
+                  "keyHtml": "! shell",
+                  "descHtml": "直接执行 shell 命令"
+                }
+              ]
+            },
+            {
+              "title": "Headless Cursor Agent",
+              "rows": [
+                {
+                  "keyHtml": "cursor-agent -p \"query\"",
+                  "descHtml": "无交互执行任务"
+                },
+                {
+                  "keyHtml": "cursor-agent -p --force",
+                  "descHtml": "跳过确认，适合自动化脚本"
+                },
+                {
+                  "keyHtml": "--output-format text|json|stream-json",
+                  "descHtml": "控制输出格式"
+                },
+                {
+                  "keyHtml": "-b / --background",
+                  "descHtml": "在后台运行长期任务"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "className": "section-mcp",
+          "header": "🔌 MCP 与外部工具",
+          "groups": [
+            {
+              "title": "MCP 支持",
+              "rows": [
+                {
+                  "keyHtml": "stdio",
+                  "descHtml": "本地进程型 MCP"
+                },
+                {
+                  "keyHtml": "SSE",
+                  "descHtml": "远程 SSE 连接"
+                },
+                {
+                  "keyHtml": "Streamable HTTP",
+                  "descHtml": "现代 HTTP transport"
+                },
+                {
+                  "keyHtml": "Connect external tools",
+                  "descHtml": "把文档、浏览器、内部平台接入 agent"
+                }
+              ]
+            },
+            {
+              "title": "终端协作",
+              "rows": [
+                {
+                  "keyHtml": "! shell",
+                  "descHtml": "在对话里直接调用 shell"
+                },
+                {
+                  "keyHtml": "@ files",
+                  "descHtml": "引用工作区文件和 diff 上下文"
+                },
+                {
+                  "keyHtml": "Browser / APIs / internal docs",
+                  "descHtml": "适合配合 MCP 统一接入"
+                },
+                {
+                  "keyHtml": "Background tasks",
+                  "descHtml": "长任务可后台运行再回看结果"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "className": "section-slash-memory",
+      "sections": [
+        {
+          "className": "section-slash",
+          "header": "⚡ Slash Commands",
+          "groups": [
+            {
+              "title": "交互输入",
+              "rows": [
+                {
+                  "keyHtml": "/model",
+                  "descHtml": "切换模型或回到 Auto"
+                },
+                {
+                  "keyHtml": "@ file.ts",
+                  "descHtml": "引用具体文件或目录"
+                },
+                {
+                  "keyHtml": "! npm test",
+                  "descHtml": "在 shell mode 中直接跑命令"
+                },
+                {
+                  "keyHtml": "Prompt history",
+                  "descHtml": "交互模式里可继续追问和迭代"
+                }
+              ]
+            },
+            {
+              "title": "适合的会话风格",
+              "rows": [
+                {
+                  "keyHtml": "Ask questions",
+                  "descHtml": "对代码、架构、API 直接提问"
+                },
+                {
+                  "keyHtml": "Add features",
+                  "descHtml": "让 agent 提案并改代码"
+                },
+                {
+                  "keyHtml": "Make changes",
+                  "descHtml": "适合仓库内连贯修改"
+                },
+                {
+                  "keyHtml": "Run in background",
+                  "descHtml": "把较长任务放到后台"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "className": "section-memory",
+          "header": "📁 配置与规则",
+          "groups": [
+            {
+              "title": "登录状态",
+              "rows": [
+                {
+                  "keyHtml": "cursor-agent login",
+                  "descHtml": "交互式登录 Cursor"
+                },
+                {
+                  "keyHtml": "cursor-agent status",
+                  "descHtml": "查看当前登录状态"
+                },
+                {
+                  "keyHtml": "cursor-agent logout",
+                  "descHtml": "退出登录"
+                },
+                {
+                  "keyHtml": "CURSOR_API_KEY",
+                  "descHtml": "无浏览器环境或 CI 常用的 API key 方式"
+                }
+              ]
+            },
+            {
+              "title": "模型与上下文",
+              "rows": [
+                {
+                  "keyHtml": "/model",
+                  "descHtml": "查看和切换可用模型"
+                },
+                {
+                  "keyHtml": "Auto",
+                  "descHtml": "让 Cursor 自动选模型"
+                },
+                {
+                  "keyHtml": "@ files",
+                  "descHtml": "显式指定当前轮要读的文件"
+                },
+                {
+                  "keyHtml": "Preferred IDE",
+                  "descHtml": "官方强调与 Cursor / VS Code / JetBrains 联动"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "className": "section-workflows-config",
+      "sections": [
+        {
+          "className": "section-workflows",
+          "header": "🧠 工作流与自动化",
+          "groups": [
+            {
+              "title": "脚本化执行",
+              "rows": [
+                {
+                  "keyHtml": "cursor-agent -p",
+                  "descHtml": "最基础的无头执行入口"
+                },
+                {
+                  "keyHtml": "--output-format json",
+                  "descHtml": "便于脚本处理结果"
+                },
+                {
+                  "keyHtml": "--force",
+                  "descHtml": "跳过交互批准，更适合 CI"
+                },
+                {
+                  "keyHtml": "-b",
+                  "descHtml": "把长期任务丢到后台继续跑"
+                }
+              ]
+            },
+            {
+              "title": "适合场景",
+              "rows": [
+                {
+                  "keyHtml": "One-off coding task",
+                  "descHtml": "终端里一次性修复、解释、生成"
+                },
+                {
+                  "keyHtml": "Shell + files + model switch",
+                  "descHtml": "适合带上下文的命令行开发流程"
+                },
+                {
+                  "keyHtml": "Background runs",
+                  "descHtml": "长任务不用一直占着前台终端"
+                },
+                {
+                  "keyHtml": "IDE handoff",
+                  "descHtml": "终端和 IDE 之间切换成本低"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "className": "section-config",
+          "header": "⚙️ 配置与环境变量",
+          "groups": [
+            {
+              "title": "常用参数",
+              "rows": [
+                {
+                  "keyHtml": "-p / --print",
+                  "descHtml": "执行 prompt 并打印输出"
+                },
+                {
+                  "keyHtml": "-a / --api-key",
+                  "descHtml": "通过参数提供 API key"
+                },
+                {
+                  "keyHtml": "--output-format",
+                  "descHtml": "在 text / json / stream-json 之间切换"
+                },
+                {
+                  "keyHtml": "-b / --background",
+                  "descHtml": "后台执行"
+                }
+              ]
+            },
+            {
+              "title": "环境变量",
+              "rows": [
+                {
+                  "keyHtml": "CURSOR_API_KEY",
+                  "descHtml": "默认的 API key 环境变量"
+                },
+                {
+                  "keyHtml": "Interactive login",
+                  "descHtml": "本地开发机通常直接用登录状态"
+                },
+                {
+                  "keyHtml": "Models from multiple providers",
+                  "descHtml": "官方强调可接入多家模型"
+                },
+                {
+                  "keyHtml": "Auto mode",
+                  "descHtml": "默认可让 Cursor 代选模型"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "className": "section-skills-cli",
+      "sections": [
+        {
+          "className": "section-skills",
+          "header": "🧩 客户端与模型",
+          "groups": [
+            {
+              "title": "客户端形态",
+              "rows": [
+                {
+                  "keyHtml": "Interactive agent",
+                  "descHtml": "适合长对话和逐步实现"
+                },
+                {
+                  "keyHtml": "Cursor Agent",
+                  "descHtml": "适合脚本、CI 和后台运行"
+                },
+                {
+                  "keyHtml": "Shell Mode",
+                  "descHtml": "把 shell 命令纳入同一轮工作流"
+                },
+                {
+                  "keyHtml": "MCP",
+                  "descHtml": "把终端 agent 扩展成多工具协作入口"
+                }
+              ]
+            },
+            {
+              "title": "模型使用",
+              "rows": [
+                {
+                  "keyHtml": "/model",
+                  "descHtml": "切换具体模型"
+                },
+                {
+                  "keyHtml": "Auto",
+                  "descHtml": "让 Cursor 自动选择"
+                },
+                {
+                  "keyHtml": "Anthropic / OpenAI / Gemini / Cursor",
+                  "descHtml": "官方展示支持多家模型"
+                },
+                {
+                  "keyHtml": "Headless + model pinning",
+                  "descHtml": "脚本里固定模型更稳定"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "className": "section-cli",
+          "header": "🖥️ CLI 与参数",
+          "groups": [
+            {
+              "title": "安装与登录",
+              "rows": [
+                {
+                  "keyHtml": "curl https://cursor.com/install -fsS | bash",
+                  "descHtml": "官方安装脚本"
+                },
+                {
+                  "keyHtml": "agent",
+                  "descHtml": "启动交互式 Cursor CLI"
+                },
+                {
+                  "keyHtml": "cursor-agent login / status / logout",
+                  "descHtml": "管理认证状态"
+                },
+                {
+                  "keyHtml": "CURSOR_API_KEY",
+                  "descHtml": "CI 或服务器环境常用"
+                }
+              ]
+            },
+            {
+              "title": "高频参数",
+              "rows": [
+                {
+                  "keyHtml": "-p",
+                  "descHtml": "headless prompt"
+                },
+                {
+                  "keyHtml": "--force",
+                  "descHtml": "跳过确认"
+                },
+                {
+                  "keyHtml": "--output-format",
+                  "descHtml": "控制程序化输出"
+                },
+                {
+                  "keyHtml": "-b",
+                  "descHtml": "后台模式"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "footer": {
+    "rows": [
+      {
+        "html": "<span class=\"footer-label\">高频命令：</span><span class=\"footer-item\"><code>agent</code></span><span class=\"footer-sep\">·</span><span class=\"footer-item\"><code>cursor-agent -p</code></span><span class=\"footer-sep\">·</span><span class=\"footer-item\"><code>cursor-agent login</code></span><span class=\"footer-sep\">·</span><span class=\"footer-item\"><code>cursor-agent status</code></span>"
+      },
+      {
+        "html": "<span class=\"footer-label\">关键环境：</span><span class=\"footer-item\"><code>CURSOR_API_KEY</code></span><span class=\"footer-sep\">·</span><span class=\"footer-item\"><code>--output-format</code></span><span class=\"footer-sep\">·</span><span class=\"footer-item\"><code>--force</code></span><span class=\"footer-sep\">·</span><span class=\"footer-item\"><code>-b</code></span>"
+      }
+    ]
+  }
+}

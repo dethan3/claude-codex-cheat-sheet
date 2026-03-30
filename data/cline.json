@@ -1,0 +1,466 @@
+{
+  "id": "cline",
+  "navLabel": "Cline CLI",
+  "pageClass": "page-cline",
+  "title": {
+    "zh": "Cline CLI 中文速查表",
+    "en": "Cline CLI Cheat Sheet"
+  },
+  "description": {
+    "zh": "Cline CLI 中文速查表，整理 interactive / task 模式、Plan/Act、配置目录、rules、workflows、hooks 与自动化参数。",
+    "en": "Cline CLI cheat sheet covering interactive and task modes, Plan/Act, config directories, rules, workflows, hooks, and automation flags."
+  },
+  "versionInfo": {
+    "zh": "Cline CLI",
+    "en": "Cline CLI"
+  },
+  "lastUpdated": {
+    "zh": "资料核对：2026 年 3 月 30 日",
+    "en": "Verified: March 30, 2026"
+  },
+  "changelog": {
+    "href": "https://docs.cline.bot/cline-cli/cli-reference",
+    "label": {
+      "zh": "📋 资料来源",
+      "en": "📋 Sources"
+    },
+    "items": [
+      {
+        "zh": "基于 Cline CLI overview、CLI reference 与 command reference 整理",
+        "en": "Compiled from the Cline CLI overview, CLI reference, and command reference"
+      },
+      {
+        "zh": "重点覆盖 interactive / task 两种模式、Plan / Act、rules、hooks、skills 与 providers",
+        "en": "Focuses on interactive and task modes, Plan/Act, rules, hooks, skills, and providers"
+      },
+      {
+        "zh": "官方文档特别强调它适合终端里做 agentic automation",
+        "en": "The official docs specifically position it for agentic automation from the terminal"
+      },
+      {
+        "zh": "适合把审批、配置和自动化流程整理成一页常用参考",
+        "en": "A good fit for a one-page reference of approvals, config, and automation flows"
+      }
+    ]
+  },
+  "columns": [
+    {
+      "className": "section-keyboard-mcp",
+      "sections": [
+        {
+          "className": "section-keyboard",
+          "header": "⌨️ 交互与快捷键",
+          "groups": [
+            {
+              "title": "交互模式",
+              "rows": [
+                {
+                  "keyHtml": "cline",
+                  "descHtml": "启动完整 interactive 模式"
+                },
+                {
+                  "keyHtml": "cline \"prompt\"",
+                  "descHtml": "带初始提示进入会话"
+                },
+                {
+                  "keyHtml": "<span class=\"keycap\">Tab</span>",
+                  "descHtml": "在 Plan / Act 之间切换"
+                },
+                {
+                  "keyHtml": "<span class=\"keycap\">Shift</span><span class=\"keycap\">Tab</span>",
+                  "descHtml": "切换 Auto-approve all"
+                },
+                {
+                  "keyHtml": "@ file.ts",
+                  "descHtml": "插入文件引用"
+                }
+              ]
+            },
+            {
+              "title": "Task / 非交互",
+              "rows": [
+                {
+                  "keyHtml": "cline task \"prompt\"",
+                  "descHtml": "直接执行任务"
+                },
+                {
+                  "keyHtml": "cline -y \"prompt\"",
+                  "descHtml": "自动批准执行"
+                },
+                {
+                  "keyHtml": "cline --json \"prompt\"",
+                  "descHtml": "输出 JSON 结果"
+                },
+                {
+                  "keyHtml": "cat README.md | cline",
+                  "descHtml": "从标准输入喂给 Cline"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "className": "section-mcp",
+          "header": "🔌 MCP 与外部工具",
+          "groups": [
+            {
+              "title": "Providers 与外部能力",
+              "rows": [
+                {
+                  "keyHtml": "cline auth [provider]",
+                  "descHtml": "管理 provider 认证"
+                },
+                {
+                  "keyHtml": "OpenAI / Anthropic / Gemini / OpenRouter",
+                  "descHtml": "常见云端 providers"
+                },
+                {
+                  "keyHtml": "Ollama / LM Studio",
+                  "descHtml": "本地模型也可直接接入"
+                },
+                {
+                  "keyHtml": "Browser / bash / file tools",
+                  "descHtml": "更偏完整 agent 工具链"
+                }
+              ]
+            },
+            {
+              "title": "命令审批",
+              "rows": [
+                {
+                  "keyHtml": "CLINE_COMMAND_PERMISSIONS",
+                  "descHtml": "预置允许 / 拒绝的命令模式"
+                },
+                {
+                  "keyHtml": "--yes / -y",
+                  "descHtml": "自动批准，适合受控环境"
+                },
+                {
+                  "keyHtml": "Plan mode",
+                  "descHtml": "先读先想，不急着执行"
+                },
+                {
+                  "keyHtml": "Act mode",
+                  "descHtml": "允许真正调用工具改动系统"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "className": "section-slash-memory",
+      "sections": [
+        {
+          "className": "section-slash",
+          "header": "⚡ Slash Commands",
+          "groups": [
+            {
+              "title": "会话内命令",
+              "rows": [
+                {
+                  "keyHtml": "/settings",
+                  "descHtml": "打开或修改配置"
+                },
+                {
+                  "keyHtml": "/history",
+                  "descHtml": "查看对话历史"
+                },
+                {
+                  "keyHtml": "/models",
+                  "descHtml": "查看或切换模型"
+                },
+                {
+                  "keyHtml": "/newtask",
+                  "descHtml": "开始新任务"
+                }
+              ]
+            },
+            {
+              "title": "辅助动作",
+              "rows": [
+                {
+                  "keyHtml": "@",
+                  "descHtml": "插入文件路径和内容"
+                },
+                {
+                  "keyHtml": "Plan / Act",
+                  "descHtml": "配合 slash 命令一起调试任务路线"
+                },
+                {
+                  "keyHtml": "Auto-approve all",
+                  "descHtml": "确认信任环境后再打开"
+                },
+                {
+                  "keyHtml": "interactive + task",
+                  "descHtml": "先在 interactive 调 prompt，再固化成 task"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "className": "section-memory",
+          "header": "📁 配置与规则",
+          "groups": [
+            {
+              "title": "配置目录",
+              "rows": [
+                {
+                  "keyHtml": "~/.cline/data/",
+                  "descHtml": "默认配置与数据目录"
+                },
+                {
+                  "keyHtml": "--config DIR",
+                  "descHtml": "把配置目录指到别处"
+                },
+                {
+                  "keyHtml": "CLINE_DIR",
+                  "descHtml": "通过环境变量覆盖配置目录"
+                },
+                {
+                  "keyHtml": "-c / --cwd",
+                  "descHtml": "指定工作目录"
+                }
+              ]
+            },
+            {
+              "title": "可配置资产",
+              "rows": [
+                {
+                  "keyHtml": "Rules",
+                  "descHtml": "持久指令和规范"
+                },
+                {
+                  "keyHtml": "Workflows",
+                  "descHtml": "复用型多步流程"
+                },
+                {
+                  "keyHtml": "Hooks",
+                  "descHtml": "在任务前后或工具前后插入行为"
+                },
+                {
+                  "keyHtml": "Skills",
+                  "descHtml": "为常见工作补专门能力"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "className": "section-workflows-config",
+      "sections": [
+        {
+          "className": "section-workflows",
+          "header": "🧠 工作流与自动化",
+          "groups": [
+            {
+              "title": "自动化模式",
+              "rows": [
+                {
+                  "keyHtml": "cline task",
+                  "descHtml": "最适合做脚本化 agentic task"
+                },
+                {
+                  "keyHtml": "--json",
+                  "descHtml": "把结果交给其他程序消费"
+                },
+                {
+                  "keyHtml": "git diff | cline -y \"review\"",
+                  "descHtml": "把外部命令输出来做后处理"
+                },
+                {
+                  "keyHtml": "-v / --verbose",
+                  "descHtml": "调试复杂自动化时很有用"
+                }
+              ]
+            },
+            {
+              "title": "推荐习惯",
+              "rows": [
+                {
+                  "keyHtml": "Plan first",
+                  "descHtml": "先在 Plan 模式验证路径"
+                },
+                {
+                  "keyHtml": "Then task mode",
+                  "descHtml": "稳定后再写进 task/CI"
+                },
+                {
+                  "keyHtml": "Rules + workflows",
+                  "descHtml": "把团队规范沉到配置"
+                },
+                {
+                  "keyHtml": "Hooks + permissions",
+                  "descHtml": "控制自动执行边界"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "className": "section-config",
+          "header": "⚙️ 配置与环境变量",
+          "groups": [
+            {
+              "title": "高频参数",
+              "rows": [
+                {
+                  "keyHtml": "-y / --yes",
+                  "descHtml": "自动批准"
+                },
+                {
+                  "keyHtml": "--json",
+                  "descHtml": "输出 JSON"
+                },
+                {
+                  "keyHtml": "-v / --verbose",
+                  "descHtml": "打印更详细日志"
+                },
+                {
+                  "keyHtml": "--config DIR",
+                  "descHtml": "指定配置目录"
+                }
+              ]
+            },
+            {
+              "title": "Providers",
+              "rows": [
+                {
+                  "keyHtml": "cline auth openai",
+                  "descHtml": "配置 OpenAI"
+                },
+                {
+                  "keyHtml": "cline auth anthropic",
+                  "descHtml": "配置 Anthropic"
+                },
+                {
+                  "keyHtml": "cline auth gemini / openrouter",
+                  "descHtml": "配置 Gemini 或 OpenRouter"
+                },
+                {
+                  "keyHtml": "Ollama / LM Studio",
+                  "descHtml": "本地模型可配到同一 CLI"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "className": "section-skills-cli",
+      "sections": [
+        {
+          "className": "section-skills",
+          "header": "🔧 Skills 与 Agents",
+          "groups": [
+            {
+              "title": "可复用资产",
+              "rows": [
+                {
+                  "keyHtml": "Rules",
+                  "descHtml": "长期行为规则"
+                },
+                {
+                  "keyHtml": "Workflows",
+                  "descHtml": "流程模板"
+                },
+                {
+                  "keyHtml": "Hooks",
+                  "descHtml": "前后置自动行为"
+                },
+                {
+                  "keyHtml": "Skills",
+                  "descHtml": "可组合的特定能力"
+                }
+              ]
+            },
+            {
+              "title": "CLI 维护命令",
+              "rows": [
+                {
+                  "keyHtml": "cline config",
+                  "descHtml": "查看和编辑配置"
+                },
+                {
+                  "keyHtml": "cline history",
+                  "descHtml": "查看历史会话"
+                },
+                {
+                  "keyHtml": "cline dev log",
+                  "descHtml": "调试 CLI 自身问题"
+                },
+                {
+                  "keyHtml": "cline version / update",
+                  "descHtml": "查看版本或更新"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "className": "section-cli",
+          "header": "🖥️ CLI 与参数",
+          "groups": [
+            {
+              "title": "安装与基础命令",
+              "rows": [
+                {
+                  "keyHtml": "npm install -g @cline/cline",
+                  "descHtml": "官方安装方式"
+                },
+                {
+                  "keyHtml": "cline",
+                  "descHtml": "交互模式"
+                },
+                {
+                  "keyHtml": "cline task",
+                  "descHtml": "非交互任务模式"
+                },
+                {
+                  "keyHtml": "cline auth / config / history",
+                  "descHtml": "认证、配置、历史的主入口"
+                }
+              ]
+            },
+            {
+              "title": "最常记的参数",
+              "rows": [
+                {
+                  "keyHtml": "-y",
+                  "descHtml": "自动批准"
+                },
+                {
+                  "keyHtml": "--json",
+                  "descHtml": "JSON 输出"
+                },
+                {
+                  "keyHtml": "-c",
+                  "descHtml": "工作目录"
+                },
+                {
+                  "keyHtml": "--config",
+                  "descHtml": "配置目录"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "footer": {
+    "rows": [
+      {
+        "html": "<span class=\"footer-label\">关键目录：</span><span class=\"footer-item\"><code>~/.cline/data/</code></span><span class=\"footer-sep\">·</span><span class=\"footer-item\"><code>CLINE_DIR</code></span><span class=\"footer-sep\">·</span><span class=\"footer-item\"><code>Rules</code></span><span class=\"footer-sep\">·</span><span class=\"footer-item\"><code>Workflows</code></span><span class=\"footer-sep\">·</span><span class=\"footer-item\"><code>Hooks</code></span>"
+      },
+      {
+        "html": "<span class=\"footer-label\">高频参数：</span><span class=\"footer-item\"><code>-y</code></span><span class=\"footer-sep\">·</span><span class=\"footer-item\"><code>--json</code></span><span class=\"footer-sep\">·</span><span class=\"footer-item\"><code>--config</code></span><span class=\"footer-sep\">·</span><span class=\"footer-item\"><code>CLINE_COMMAND_PERMISSIONS</code></span>"
+      }
+    ]
+  }
+}

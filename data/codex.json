@@ -1,5 +1,6 @@
 {
   "id": "codex",
+  "navLabel": "OpenAI Codex",
   "pageClass": "page-codex",
   "title": "OpenAI Codex 中文速查表",
   "description": "OpenAI Codex 中文速查表，汇总 Codex CLI/TUI 的快捷键、Slash Commands、CLI 参数、沙箱审批、配置文件与 MCP 参考。",

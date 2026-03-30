@@ -1,0 +1,71 @@
+{
+  "defaultProduct": "claude",
+  "entries": [
+    {
+      "output": "index.html",
+      "product": "claude"
+    },
+    {
+      "output": "claude-code.html",
+      "product": "claude"
+    },
+    {
+      "output": "codex.html",
+      "product": "codex"
+    },
+    {
+      "output": "openai-codex.html",
+      "product": "codex"
+    },
+    {
+      "output": "gemini-cli.html",
+      "product": "gemini"
+    },
+    {
+      "output": "github-copilot-cli.html",
+      "product": "copilot"
+    },
+    {
+      "output": "cursor-cli.html",
+      "product": "cursor"
+    },
+    {
+      "output": "cline-cli.html",
+      "product": "cline"
+    },
+    {
+      "output": "opencode-cli.html",
+      "product": "opencode"
+    }
+  ],
+  "products": [
+    {
+      "id": "claude",
+      "file": "data/claude.json"
+    },
+    {
+      "id": "codex",
+      "file": "data/codex.json"
+    },
+    {
+      "id": "gemini",
+      "file": "data/gemini.json"
+    },
+    {
+      "id": "copilot",
+      "file": "data/copilot.json"
+    },
+    {
+      "id": "cursor",
+      "file": "data/cursor.json"
+    },
+    {
+      "id": "cline",
+      "file": "data/cline.json"
+    },
+    {
+      "id": "opencode",
+      "file": "data/opencode.json"
+    }
+  ]
+}

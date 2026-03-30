@@ -7,6 +7,7 @@
 
   var appData = JSON.parse(dataEl.textContent);
   var products = appData.products || {};
+  var productOrder = appData.productOrder || Object.keys(products);
   var translations = appData.translations || { exact: {}, replace: {} };
   var replaceEntries = Object.entries(translations.replace || {}).sort(function (a, b) {
     return b[0].length - a[0].length;
@@ -59,6 +60,10 @@
   var LANG_KEY = "cheatsheet-lang";
   var OS_KEY = "cc-os";
   var OS_MANUAL_KEY = "cc-os-manual";
+  var APP_TITLE = "Agent Cheat Sheet";
+  var firstProduct = productOrder.find(function (productId) {
+    return !!products[productId];
+  }) || Object.keys(products)[0];
 
   function detectOS() {
     var platform = navigator.platform || "";
@@ -84,8 +89,8 @@
       return saved;
     }
 
-    var fallback = document.body.dataset.defaultProduct || "claude";
-    return products[fallback] ? fallback : "claude";
+    var fallback = document.body.dataset.defaultProduct || firstProduct || "claude";
+    return products[fallback] ? fallback : (firstProduct || "claude");
   }
 
   function getInitialLang() {
@@ -114,7 +119,25 @@
     os: getInitialOS(),
   };
 
+  function localizeValue(value) {
+    if (!value || typeof value !== "object" || Array.isArray(value)) {
+      return value;
+    }
+
+    if (state.lang === "en" && typeof value.en === "string") {
+      return value.en;
+    }
+
+    if (typeof value.zh === "string") {
+      return value.zh;
+    }
+
+    return value;
+  }
+
   function translate(value) {
+    value = localizeValue(value);
+
     if (state.lang !== "en" || typeof value !== "string") {
       return value;
     }
@@ -205,12 +228,11 @@
   }
 
   function updateMeta(page) {
-    var title = translate(page.title);
     var description = translate(page.description);
 
-    document.title = title;
+    document.title = APP_TITLE;
     document.documentElement.lang = state.lang === "en" ? "en" : "zh-CN";
-    titleEl.textContent = title;
+    titleEl.textContent = APP_TITLE;
     versionInfoEl.textContent = translate(page.versionInfo);
     lastUpdatedEl.textContent = translate(page.lastUpdated);
 
@@ -293,6 +315,7 @@
       return;
     }
 
+    document.body.dataset.currentProduct = state.product;
     updateMeta(page);
     renderChangelog(page);
     mainGrid.innerHTML = page.columns.map(renderColumn).join("");
