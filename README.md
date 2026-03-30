@@ -1,4 +1,4 @@
-# agent-cheat-sheets
+# agent-cheat-sheet
 
 这个仓库现在定位为“终端 Agent / Coding CLI 速查表合集”。
 
